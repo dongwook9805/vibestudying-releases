@@ -3,28 +3,35 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>VibeStudying | PDF를 시험용 복습 자료로 바꾸는 학습 앱</title>
+    <title>VibeStudying | PDF를 복습 자료로 바꾸는 Mac 학습 앱</title>
     <meta
       name="description"
       content="강의 PDF를 읽고, 필기하고, 해부학 가리기 카드와 복습 자료로 바로 이어지는 Mac 학습 앱. Mac은 직접 다운로드, iPad/iPhone은 App Store로 운영합니다."
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Sora:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
       :root {
         color-scheme: light;
-        --bg: #f3ede2;
-        --bg-soft: #fbf8f1;
-        --panel: rgba(255, 252, 245, 0.88);
-        --text: #111a20;
-        --muted: #58656c;
-        --muted-strong: #41505a;
-        --line: #d8cfbf;
-        --line-soft: #e2d9c9;
-        --blue: #1757dc;
-        --blue-dark: #0f43ac;
-        --orange: #f4ad5b;
-        --ink: #172028;
+        --bg: #f6f0e6;
+        --paper: rgba(255, 251, 245, 0.9);
+        --paper-strong: #fffaf2;
+        --panel: #f2eadf;
+        --ink: #12181d;
+        --ink-soft: #2d3740;
+        --muted: #657178;
+        --line: rgba(31, 36, 42, 0.12);
+        --line-strong: rgba(18, 24, 29, 0.18);
+        --blue: #1d52d6;
+        --blue-soft: #e6eeff;
+        --amber: #d98a2b;
+        --slate: #18222b;
         --white: #ffffff;
-        --dark: #101920;
+        --shadow: 0 26px 80px rgba(28, 34, 39, 0.12);
       }
 
       * {
@@ -39,11 +46,11 @@
         margin: 0;
         min-width: 320px;
         background:
-          radial-gradient(circle at 15% 0%, rgba(23, 87, 220, 0.2), transparent 30%),
-          radial-gradient(circle at 80% 3%, rgba(244, 173, 91, 0.22), transparent 20%),
-          linear-gradient(180deg, #fbf8f1 0%, var(--bg) 58%);
-        color: var(--text);
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+          radial-gradient(circle at 14% 6%, rgba(29, 82, 214, 0.18), transparent 28%),
+          radial-gradient(circle at 88% 12%, rgba(217, 138, 43, 0.18), transparent 20%),
+          linear-gradient(180deg, #fbf7f1 0%, var(--bg) 48%, #f0e7d8 100%);
+        color: var(--ink);
+        font-family: "Sora", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       }
 
       body::before {
@@ -51,10 +58,10 @@
         position: fixed;
         inset: 0;
         pointer-events: none;
-        background-image:
-          linear-gradient(rgba(255, 255, 255, 0.36) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(255, 255, 255, 0.3) 1px, transparent 1px);
-        background-size: 56px 56px;
+        background:
+          linear-gradient(rgba(255, 255, 255, 0.28) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.24) 1px, transparent 1px);
+        background-size: 60px 60px;
         opacity: 0.35;
       }
 
@@ -63,7 +70,11 @@
         text-decoration: none;
       }
 
-      .shell {
+      button {
+        font: inherit;
+      }
+
+      .site {
         position: relative;
         z-index: 1;
       }
@@ -77,16 +88,16 @@
         position: sticky;
         top: 0;
         z-index: 20;
-        backdrop-filter: blur(18px);
-        background: rgba(243, 237, 226, 0.84);
-        border-bottom: 1px solid rgba(217, 209, 194, 0.78);
+        background: rgba(246, 240, 230, 0.82);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(18, 24, 29, 0.08);
       }
 
       .nav {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 24px;
+        gap: 18px;
         padding: 16px 0;
       }
 
@@ -97,50 +108,49 @@
       }
 
       .brand-mark {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 44px;
-        height: 44px;
+        width: 46px;
+        height: 46px;
+        display: grid;
+        place-items: center;
         border-radius: 18px;
-        background: var(--blue);
+        background: linear-gradient(135deg, #1d52d6, #1742b0);
         color: var(--white);
         font-size: 14px;
         font-weight: 700;
-        letter-spacing: 0.02em;
-        box-shadow: 0 16px 34px rgba(23, 87, 220, 0.24);
+        letter-spacing: 0.04em;
+        box-shadow: 0 18px 36px rgba(29, 82, 214, 0.28);
       }
 
-      .brand-lines {
+      .brand-copy {
         display: flex;
         flex-direction: column;
         gap: 2px;
       }
 
-      .brand-lines strong {
+      .brand-copy strong {
         font-size: 11px;
-        letter-spacing: 0.32em;
         text-transform: uppercase;
-        color: #6b746f;
+        letter-spacing: 0.3em;
+        color: #79827a;
       }
 
-      .brand-lines span {
+      .brand-copy span {
         font-size: 14px;
-        color: #1d2a33;
         font-weight: 600;
+        color: #19252c;
       }
 
       .nav-links {
         display: flex;
-        gap: 26px;
+        align-items: center;
+        gap: 24px;
+        color: #43515a;
         font-size: 14px;
-        color: var(--muted-strong);
       }
 
       .nav-actions {
         display: flex;
-        gap: 12px;
-        align-items: center;
+        gap: 10px;
       }
 
       .button {
@@ -148,10 +158,10 @@
         align-items: center;
         justify-content: center;
         border-radius: 999px;
-        padding: 14px 24px;
-        font-size: 15px;
+        padding: 13px 22px;
+        font-size: 14px;
         font-weight: 700;
-        transition: transform 0.18s ease, background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+        transition: transform 0.18s ease, background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
       }
 
       .button:hover {
@@ -164,37 +174,53 @@
       }
 
       .button.secondary {
-        background: rgba(255, 255, 255, 0.78);
-        border: 1px solid #d1c8b7;
-        color: #213038;
+        border: 1px solid rgba(18, 24, 29, 0.12);
+        background: rgba(255, 255, 255, 0.72);
+        color: #1f2d35;
       }
 
-      .button.ghost {
+      .button.dark-secondary {
         border: 1px solid rgba(255, 255, 255, 0.14);
-        color: rgba(255, 255, 255, 0.88);
-        background: rgba(255, 255, 255, 0.06);
+        background: rgba(255, 255, 255, 0.07);
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .button.light {
+        background: var(--paper-strong);
+        color: var(--ink);
+      }
+
+      .button.disabled {
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        color: rgba(255, 255, 255, 0.42);
+        background: transparent;
+        cursor: default;
+      }
+
+      .button.disabled:hover {
+        transform: none;
       }
 
       .hero {
         display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(420px, 560px);
+        grid-template-columns: minmax(0, 1.02fr) minmax(420px, 520px);
         gap: 54px;
-        padding: 64px 0 42px;
+        padding: 72px 0 56px;
       }
 
-      .pill {
+      .status-pill {
         display: inline-flex;
         align-items: center;
         gap: 10px;
         padding: 10px 16px;
         border-radius: 999px;
-        border: 1px solid rgba(216, 207, 191, 0.9);
-        background: rgba(255, 255, 255, 0.74);
-        color: #4b5961;
-        font-size: 14px;
+        background: rgba(255, 255, 255, 0.7);
+        border: 1px solid rgba(18, 24, 29, 0.1);
+        color: #4d5a61;
+        font-size: 13px;
       }
 
-      .pill-dot {
+      .status-dot {
         width: 10px;
         height: 10px;
         border-radius: 50%;
@@ -202,19 +228,19 @@
       }
 
       .hero h1 {
-        margin: 22px 0 0;
-        max-width: 760px;
-        font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
-        font-size: clamp(54px, 7vw, 94px);
+        margin: 24px 0 0;
+        font-family: "Fraunces", Georgia, serif;
+        font-size: clamp(56px, 7vw, 92px);
         line-height: 0.94;
         letter-spacing: -0.07em;
+        max-width: 760px;
       }
 
       .hero-copy {
-        margin-top: 26px;
-        max-width: 700px;
-        font-size: 21px;
-        line-height: 1.8;
+        margin: 24px 0 0;
+        max-width: 680px;
+        font-size: 19px;
+        line-height: 1.9;
         color: var(--muted);
       }
 
@@ -222,428 +248,402 @@
         display: flex;
         flex-wrap: wrap;
         gap: 14px;
-        margin-top: 34px;
+        margin-top: 32px;
       }
 
-      .hero-tags {
+      .hero-meta {
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
         margin-top: 18px;
       }
 
-      .hero-tag {
-        border-radius: 999px;
+      .meta-chip {
         padding: 10px 14px;
-        background: rgba(255, 255, 255, 0.72);
-        border: 1px solid var(--line-soft);
-        color: #59666d;
-        font-size: 13px;
-        font-weight: 600;
-      }
-
-      .track-block {
-        margin-top: 34px;
-        padding-top: 20px;
-        border-top: 1px solid rgba(217, 209, 196, 0.95);
-      }
-
-      .eyebrow {
-        margin: 0 0 16px;
-        font-size: 11px;
-        letter-spacing: 0.34em;
-        text-transform: uppercase;
-        color: #7c857f;
-      }
-
-      .track-list {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-
-      .track {
         border-radius: 999px;
-        padding: 10px 14px;
-        background: #e5edff;
-        color: #1747b6;
-        font-size: 14px;
-        font-weight: 700;
-      }
-
-      .showcase {
-        position: relative;
-      }
-
-      .blur-a,
-      .blur-b {
-        position: absolute;
-        border-radius: 50%;
-        filter: blur(48px);
-        pointer-events: none;
-      }
-
-      .blur-a {
-        width: 156px;
-        height: 156px;
-        left: -24px;
-        top: 60px;
-        background: rgba(23, 87, 220, 0.18);
-      }
-
-      .blur-b {
-        width: 124px;
-        height: 124px;
-        right: 24px;
-        top: 12px;
-        background: rgba(244, 173, 91, 0.24);
-      }
-
-      .showcase-panel {
-        position: relative;
-        overflow: hidden;
-        padding: 20px;
-        border-radius: 36px;
-        border: 1px solid var(--line);
-        background: var(--panel);
-        box-shadow: 0 28px 92px rgba(25, 35, 46, 0.14);
-      }
-
-      .workspace {
-        padding: 16px;
-        border-radius: 28px;
-        border: 1px solid rgba(216, 207, 191, 0.92);
-        background: #16202a;
-        color: var(--white);
-      }
-
-      .workspace-top {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 16px;
-        padding: 14px 16px;
-        border-radius: 20px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        background: rgba(255, 255, 255, 0.05);
-      }
-
-      .workspace-top strong {
-        display: block;
-        margin-top: 6px;
-        font-size: 20px;
-      }
-
-      .workspace-badge {
-        padding: 8px 12px;
-        border-radius: 999px;
-        background: var(--blue);
+        background: rgba(255, 255, 255, 0.68);
+        border: 1px solid rgba(18, 24, 29, 0.09);
+        color: #566369;
         font-size: 12px;
         font-weight: 700;
       }
 
-      .workspace-grid {
-        display: grid;
-        grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-        gap: 16px;
-        margin-top: 16px;
+      .track-line {
+        margin-top: 34px;
+        padding-top: 22px;
+        border-top: 1px solid rgba(18, 24, 29, 0.08);
       }
 
-      .canvas-card {
+      .eyebrow {
+        margin: 0;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: #7d877f;
+      }
+
+      .track-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      .track-pill {
+        padding: 11px 14px;
+        border-radius: 999px;
+        background: var(--blue-soft);
+        color: #1847b7;
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .mock-wrap {
+        position: relative;
+      }
+
+      .mock-wrap::before,
+      .mock-wrap::after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(52px);
+        pointer-events: none;
+      }
+
+      .mock-wrap::before {
+        width: 170px;
+        height: 170px;
+        left: -22px;
+        top: 42px;
+        background: rgba(29, 82, 214, 0.18);
+      }
+
+      .mock-wrap::after {
+        width: 126px;
+        height: 126px;
+        right: 16px;
+        top: 8px;
+        background: rgba(217, 138, 43, 0.2);
+      }
+
+      .mock {
+        position: relative;
+        overflow: hidden;
+        padding: 18px;
+        border-radius: 34px;
+        background: var(--paper);
+        border: 1px solid rgba(18, 24, 29, 0.08);
+        box-shadow: var(--shadow);
+      }
+
+      .mock-window {
+        border-radius: 28px;
+        background: linear-gradient(180deg, #18212a 0%, #141b22 100%);
+        color: var(--white);
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.07);
+      }
+
+      .mock-topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 16px 18px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .dot-row {
+        display: flex;
+        gap: 8px;
+      }
+
+      .dot-row span {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.26);
+      }
+
+      .mock-title {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .mock-title strong {
+        font-size: 17px;
+      }
+
+      .mock-title small {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 11px;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+      }
+
+      .mock-badge {
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(29, 82, 214, 0.94);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .mock-body {
+        display: grid;
+        grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+        gap: 14px;
+        padding: 16px;
+      }
+
+      .figure-card {
         padding: 16px;
         border-radius: 24px;
-        background: #f5f0e6;
-        color: #172028;
+        background: linear-gradient(180deg, #f7f2e8 0%, #f0e7da 100%);
+        color: var(--ink);
       }
 
-      .canvas-card-top {
+      .figure-head {
         display: flex;
         justify-content: space-between;
-        font-size: 11px;
+        font-size: 10px;
+        font-weight: 700;
         letter-spacing: 0.22em;
         text-transform: uppercase;
-        color: #6b767c;
+        color: #6f7b81;
       }
 
-      .figure {
+      .figure-box {
         position: relative;
-        aspect-ratio: 1.12 / 0.92;
-        margin-top: 16px;
+        margin-top: 14px;
+        aspect-ratio: 1.14 / 0.94;
         overflow: hidden;
-        border-radius: 20px;
-        border: 1px solid #d7cebd;
-        background: linear-gradient(140deg, #fffdf7 0%, #f0eadb 48%, #e7e0d1 100%);
+        border-radius: 18px;
+        border: 1px solid rgba(18, 24, 29, 0.1);
+        background: linear-gradient(140deg, #fffdf9 0%, #efe7d9 52%, #e5dbc8 100%);
       }
 
-      .occlusion {
+      .shape {
         position: absolute;
         border: 2px solid #101820;
         background: #ffffff;
         border-radius: 14px;
       }
 
-      .o1 { left: 10%; top: 14%; width: 32%; height: 22%; }
-      .o2 { left: 56%; top: 22%; width: 16%; height: 18%; }
-      .o3 { left: 33%; top: 61%; width: 28%; height: 16%; }
+      .shape.one { left: 12%; top: 16%; width: 30%; height: 20%; }
+      .shape.two { left: 55%; top: 26%; width: 16%; height: 16%; }
+      .shape.three { left: 34%; top: 62%; width: 28%; height: 15%; }
 
-      .num {
+      .badge-number {
         position: absolute;
-        font-size: 24px;
+        font-size: 22px;
         font-weight: 700;
-        color: #1451da;
+        color: var(--blue);
       }
 
-      .n1 { left: 10%; top: 10%; }
-      .n2 { left: 55%; top: 18%; }
-      .n3 { left: 32%; top: 57%; }
+      .badge-number.one { left: 12%; top: 12%; }
+      .badge-number.two { left: 54%; top: 22%; }
+      .badge-number.three { left: 33%; top: 58%; }
 
-      .figure-note {
+      .figure-footer {
         position: absolute;
-        left: 16px;
-        right: 16px;
-        bottom: 16px;
-        padding: 14px 16px;
-        border-radius: 18px;
-        background: rgba(22, 32, 42, 0.92);
-        color: rgba(255, 255, 255, 0.92);
-        font-size: 14px;
+        left: 14px;
+        right: 14px;
+        bottom: 14px;
+        padding: 13px 14px;
+        border-radius: 16px;
+        background: rgba(16, 24, 29, 0.92);
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 13px;
         line-height: 1.6;
       }
 
-      .side-stack {
+      .side-column {
         display: grid;
         gap: 12px;
       }
 
-      .stack-card-dark,
-      .stack-card-ink {
+      .side-card {
+        padding: 15px;
         border-radius: 22px;
-        padding: 16px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.05);
       }
 
-      .stack-card-dark {
-        background: rgba(255, 255, 255, 0.06);
+      .side-card strong {
+        display: block;
+        margin-top: 12px;
+        font-size: 17px;
       }
 
-      .stack-card-ink {
-        background: #1b2a38;
-      }
-
-      .mini-eyebrow {
-        font-size: 11px;
-        letter-spacing: 0.28em;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.42);
-      }
-
-      .answers {
+      .answer-list {
         display: grid;
         gap: 10px;
         margin-top: 14px;
       }
 
-      .answer {
-        border-radius: 18px;
+      .answer-chip {
         padding: 12px 14px;
-        background: #ffffff;
-        color: #16202a;
-        font-size: 14px;
-        font-weight: 600;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.92);
+        color: var(--ink);
+        font-size: 13px;
+        font-weight: 700;
       }
 
-      .tools {
+      .tool-grid {
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
         margin-top: 14px;
       }
 
-      .tool {
+      .tool-chip {
+        padding: 9px 12px;
         border-radius: 999px;
-        padding: 10px 12px;
         background: rgba(255, 255, 255, 0.08);
-        color: rgba(255, 255, 255, 0.9);
-        font-size: 13px;
+        color: rgba(255, 255, 255, 0.88);
+        font-size: 12px;
+        font-weight: 600;
       }
 
-      .stack-note {
-        margin-top: 14px;
-        font-size: 14px;
-        line-height: 1.7;
-        color: rgba(255, 255, 255, 0.74);
-      }
-
-      .showcase-bottom {
+      .feature-strip {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 12px;
-        margin-top: 16px;
+        margin-top: 14px;
       }
 
-      .mini-card {
-        border-radius: 22px;
+      .feature-strip article {
         padding: 18px;
-        border: 1px solid #d9d1c0;
-        background: rgba(255, 255, 255, 0.82);
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.84);
+        border: 1px solid rgba(18, 24, 29, 0.08);
       }
 
-      .mini-card .mini-eyebrow {
-        color: #7b857f;
-      }
-
-      .mini-card strong {
+      .feature-strip strong {
         display: block;
         margin-top: 10px;
-        font-size: 18px;
-        line-height: 1.45;
-        color: #16212a;
+        font-size: 17px;
+        line-height: 1.4;
       }
 
-      .mini-card p {
+      .feature-strip p {
         margin: 10px 0 0;
-        font-size: 14px;
-        line-height: 1.7;
         color: var(--muted);
+        font-size: 13px;
+        line-height: 1.75;
       }
 
-      section.block {
+      .section {
         padding: 18px 0 0;
       }
 
-      .card-grid {
-        display: grid;
-        gap: 16px;
-      }
-
-      .why-wrap,
-      .faq-wrap {
-        padding: 28px;
-        border-radius: 32px;
-        border: 1px solid var(--line);
-        background: var(--bg-soft);
-        box-shadow: 0 18px 52px rgba(25, 35, 46, 0.08);
-      }
-
-      .why-wrap {
-        display: grid;
-        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
         gap: 24px;
+        margin-bottom: 22px;
       }
 
       .section-title {
         margin: 14px 0 0;
-        font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
-        font-size: clamp(42px, 5vw, 64px);
+        font-family: "Fraunces", Georgia, serif;
+        font-size: clamp(42px, 5vw, 62px);
         line-height: 0.98;
         letter-spacing: -0.06em;
       }
 
       .section-copy {
-        margin: 16px 0 0;
-        font-size: 17px;
-        line-height: 1.8;
+        margin: 0;
+        max-width: 620px;
         color: var(--muted);
+        font-size: 16px;
+        line-height: 1.85;
       }
 
-      .why-cards,
-      .flow-grid,
-      .platform-grid {
+      .grid-3,
+      .grid-4,
+      .grid-2 {
         display: grid;
         gap: 16px;
       }
 
-      .why-cards {
+      .grid-3 {
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
 
-      .why-card,
-      .flow-card {
-        border-radius: 26px;
-        border: 1px solid var(--line-soft);
-        padding: 22px;
+      .grid-4 {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
       }
 
-      .why-card {
-        background: #f3ede2;
+      .grid-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .why-card.blue {
-        background: var(--blue);
-        border-color: #cfdbfc;
+      .card {
+        border-radius: 28px;
+        padding: 24px;
+        background: rgba(255, 250, 242, 0.9);
+        border: 1px solid rgba(18, 24, 29, 0.08);
+        box-shadow: 0 18px 48px rgba(28, 34, 39, 0.08);
+      }
+
+      .card.alt {
+        background: #f0e8db;
+      }
+
+      .card.blue {
+        background: linear-gradient(160deg, #1d52d6 0%, #1743b3 100%);
         color: var(--white);
       }
 
-      .why-card h3,
-      .flow-card h3,
-      .platform-card h3 {
+      .card h3 {
         margin: 14px 0 0;
-        font-size: 26px;
-        line-height: 1.32;
+        font-size: 25px;
+        line-height: 1.34;
       }
 
-      .why-card p,
-      .flow-card p,
-      .platform-card p {
-        margin: 14px 0 0;
+      .card p {
+        margin: 12px 0 0;
+        color: var(--muted);
         font-size: 14px;
-        line-height: 1.8;
+        line-height: 1.85;
       }
 
-      .why-card.blue p {
+      .card.blue p {
         color: rgba(255, 255, 255, 0.84);
       }
 
-      .chip-list {
+      .chip-line {
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
-        margin-top: 18px;
+        margin-top: 16px;
       }
 
       .chip {
+        padding: 9px 12px;
         border-radius: 999px;
-        padding: 8px 12px;
         background: rgba(255, 255, 255, 0.82);
+        color: #22313a;
         font-size: 12px;
         font-weight: 700;
-        color: #22303a;
       }
 
-      .why-card.blue .chip {
+      .card.blue .chip {
         background: rgba(255, 255, 255, 0.12);
         color: var(--white);
       }
 
-      .flow-header {
-        display: flex;
-        justify-content: space-between;
-        gap: 24px;
-        align-items: end;
-        margin-bottom: 24px;
-      }
-
-      .flow-header .section-copy {
-        max-width: 620px;
-      }
-
-      .flow-grid {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-      }
-
-      .flow-card {
-        background: #fffaf1;
-        box-shadow: 0 16px 36px rgba(22, 31, 39, 0.08);
-      }
-
-      .flow-card.soft {
-        background: #eef3ff;
-        border-color: #cfd8fb;
-      }
-
       .flow-card.dark {
-        background: #16202a;
-        border-color: #16202a;
+        background: linear-gradient(180deg, #18222b 0%, #111920 100%);
         color: var(--white);
       }
 
@@ -652,112 +652,83 @@
         color: rgba(255, 255, 255, 0.74);
       }
 
-      .platform-wrap {
-        display: grid;
-        grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
-        gap: 24px;
-        padding: 28px;
+      .distribution {
+        padding: 30px;
         border-radius: 34px;
-        background: var(--dark);
+        background: linear-gradient(160deg, #152029 0%, #0f161b 100%);
         color: var(--white);
-        box-shadow: 0 24px 82px rgba(16, 25, 32, 0.25);
+        box-shadow: 0 26px 86px rgba(15, 22, 27, 0.28);
       }
 
-      .platform-wrap .section-copy {
-        color: rgba(255, 255, 255, 0.72);
-      }
-
-      .platform-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+      .distribution .section-copy {
+        color: rgba(255, 255, 255, 0.74);
       }
 
       .platform-card {
-        border-radius: 28px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        background: rgba(255, 255, 255, 0.06);
         padding: 22px;
+        border-radius: 28px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.1);
       }
 
       .platform-head {
         display: flex;
         justify-content: space-between;
-        gap: 12px;
         align-items: start;
+        gap: 12px;
+      }
+
+      .platform-head h3 {
+        margin: 0;
+        font-size: 28px;
       }
 
       .platform-status {
-        border-radius: 999px;
         padding: 8px 12px;
+        border-radius: 999px;
         background: rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.58);
         font-size: 11px;
         font-weight: 700;
-        letter-spacing: 0.22em;
+        letter-spacing: 0.2em;
         text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.58);
       }
 
       .platform-card p {
+        margin: 14px 0 0;
         color: rgba(255, 255, 255, 0.76);
-      }
-
-      .platform-card .chip {
-        background: rgba(255, 255, 255, 0.08);
-        color: rgba(255, 255, 255, 0.9);
+        font-size: 14px;
+        line-height: 1.85;
       }
 
       .platform-actions {
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
-        margin-top: 20px;
+        margin-top: 18px;
       }
 
-      .button.light {
-        background: var(--bg);
-        color: var(--dark);
-      }
-
-      .button.disabled {
-        background: transparent;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        color: rgba(255, 255, 255, 0.45);
-        cursor: default;
-      }
-
-      .button.disabled:hover {
-        transform: none;
-      }
-
+      .support-wrap,
       .faq-wrap {
-        display: grid;
-        grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
-        gap: 28px;
-        margin-bottom: 52px;
-      }
-
-      .help-wrap {
-        display: grid;
-        grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
-        gap: 28px;
         padding: 28px;
         border-radius: 32px;
-        border: 1px solid var(--line);
-        background: #fcfaf4;
-        box-shadow: 0 18px 52px rgba(25, 35, 46, 0.08);
+        background: rgba(255, 250, 242, 0.9);
+        border: 1px solid rgba(18, 24, 29, 0.08);
+        box-shadow: 0 18px 52px rgba(28, 34, 39, 0.08);
       }
 
-      .tab-shell {
+      .support-wrap {
         display: grid;
-        gap: 14px;
+        grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+        gap: 28px;
       }
 
-      .tab-buttons {
+      .tab-bar {
         display: inline-flex;
-        width: fit-content;
         gap: 8px;
         padding: 6px;
         border-radius: 999px;
-        background: #ece5d8;
+        background: #ece4d6;
       }
 
       .tab-button {
@@ -765,28 +736,28 @@
         border-radius: 999px;
         padding: 12px 18px;
         background: transparent;
-        color: #526067;
+        color: #566369;
         font-size: 14px;
         font-weight: 800;
         cursor: pointer;
-        transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+        transition: background-color 0.18s ease, color 0.18s ease;
       }
 
       .tab-button.active {
-        background: #172028;
-        color: #ffffff;
+        background: var(--ink);
+        color: var(--white);
       }
 
-      .tab-button:hover {
-        transform: translateY(-1px);
+      .tab-panels {
+        margin-top: 14px;
       }
 
       .tab-panel {
         display: none;
-        border-radius: 24px;
-        border: 1px solid var(--line-soft);
-        background: #f3ede2;
         padding: 22px;
+        border-radius: 24px;
+        background: #f1e8da;
+        border: 1px solid rgba(18, 24, 29, 0.08);
       }
 
       .tab-panel.active {
@@ -795,20 +766,19 @@
 
       .tab-panel h3 {
         margin: 0;
-        font-size: 26px;
-        color: #152029;
+        font-size: 25px;
       }
 
       .tab-panel p,
       .tab-panel li {
-        font-size: 14px;
-        line-height: 1.8;
         color: var(--muted);
+        font-size: 14px;
+        line-height: 1.85;
       }
 
       .tab-panel ul {
-        margin: 12px 0 0;
         padding-left: 20px;
+        margin: 12px 0 0;
       }
 
       .contact-link {
@@ -818,28 +788,34 @@
         font-weight: 700;
       }
 
+      .faq-wrap {
+        display: grid;
+        grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+        gap: 28px;
+        margin-bottom: 56px;
+      }
+
       .faq-list {
         display: grid;
         gap: 12px;
       }
 
       details {
-        border: 1px solid var(--line-soft);
         border-radius: 24px;
-        background: #f3ede2;
+        border: 1px solid rgba(18, 24, 29, 0.08);
+        background: #f1e8da;
         padding: 20px 22px;
       }
 
       summary {
+        list-style: none;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: 18px;
+        gap: 16px;
         cursor: pointer;
-        list-style: none;
-        font-size: 19px;
+        font-size: 18px;
         font-weight: 800;
-        color: #152029;
       }
 
       summary::-webkit-details-marker {
@@ -848,11 +824,13 @@
 
       details p {
         margin: 14px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.85;
       }
 
       .plus {
-        flex: 0 0 auto;
-        color: #6e7872;
+        color: #6f7a72;
         transition: transform 0.18s ease;
       }
 
@@ -863,14 +841,14 @@
       footer {
         display: flex;
         justify-content: space-between;
-        gap: 18px;
         align-items: center;
+        gap: 18px;
         padding: 0 0 42px;
-        color: #59666d;
+        color: var(--muted);
         font-size: 13px;
       }
 
-      footer .links {
+      footer nav {
         display: flex;
         flex-wrap: wrap;
         gap: 14px;
@@ -878,28 +856,26 @@
 
       @media (max-width: 1120px) {
         .hero,
-        .why-wrap,
-        .platform-wrap,
-        .faq-wrap,
-        .help-wrap {
+        .support-wrap,
+        .faq-wrap {
           grid-template-columns: 1fr;
         }
 
-        .workspace-grid,
-        .why-cards,
-        .flow-grid,
-        .platform-grid,
-        .showcase-bottom {
+        .feature-strip,
+        .grid-3,
+        .grid-4,
+        .grid-2,
+        .mock-body {
           grid-template-columns: 1fr;
         }
 
-        .flow-header {
+        .section-head {
           flex-direction: column;
           align-items: flex-start;
         }
       }
 
-      @media (max-width: 840px) {
+      @media (max-width: 860px) {
         .nav {
           flex-wrap: wrap;
         }
@@ -907,70 +883,74 @@
         .nav-links {
           order: 3;
           width: 100%;
-          justify-content: space-between;
-          gap: 14px;
           overflow-x: auto;
+          gap: 18px;
         }
 
         .hero {
           gap: 34px;
-          padding-top: 42px;
+          padding: 48px 0 42px;
+        }
+
+        .hero-actions,
+        .platform-actions,
+        .nav-actions {
+          flex-direction: column;
         }
 
         .button,
         .button.primary,
         .button.secondary,
+        .button.dark-secondary,
         .button.light,
-        .button.ghost {
+        .button.disabled {
           width: 100%;
         }
 
-        .hero-actions,
-        .platform-actions {
-          flex-direction: column;
+        .feature-strip,
+        .grid-3,
+        .grid-4,
+        .grid-2 {
+          grid-template-columns: 1fr;
         }
 
-        .workspace-top {
-          flex-direction: column;
-          align-items: flex-start;
-        }
-
-        footer {
-          flex-direction: column;
-          align-items: flex-start;
-        }
-
-        .tab-buttons {
+        .tab-bar {
           width: 100%;
         }
 
         .tab-button {
           flex: 1 1 0;
         }
+
+        footer {
+          flex-direction: column;
+          align-items: flex-start;
+        }
       }
     </style>
   </head>
   <body>
-    <div class="shell">
+    <div class="site">
       <div class="nav-wrap">
         <div class="container nav">
           <a class="brand" href="#top">
             <div class="brand-mark">VS</div>
-            <div class="brand-lines">
+            <div class="brand-copy">
               <strong>VibeStudying</strong>
               <span>PDF study workspace for Mac</span>
             </div>
           </a>
 
           <nav class="nav-links">
-            <a href="#why">왜 필요한지</a>
-            <a href="#flow">사용 흐름</a>
-            <a href="#platforms">배포 채널</a>
+            <a href="#features">기능</a>
+            <a href="#flow">흐름</a>
+            <a href="#platforms">배포</a>
+            <a href="#support">지원</a>
             <a href="#faq">FAQ</a>
           </nav>
 
           <div class="nav-actions">
-            <a class="button secondary" href="#help">지원 / 개인정보</a>
+            <a class="button secondary" href="#support">지원 / 개인정보</a>
             <a
               class="button primary"
               href="https://github.com/dongwook9805/vibestudying-releases/releases/download/v2.0.14/VibeStudying-2.0.14-arm64.dmg"
@@ -981,25 +961,25 @@
         </div>
       </div>
 
-      <main id="top" class="container">
+      <main class="container" id="top">
         <section class="hero">
           <div>
-            <div class="pill">
-              <span class="pill-dot"></span>
+            <div class="status-pill">
+              <span class="status-dot"></span>
               Mac은 direct 다운로드, iPad/iPhone은 App Store로 분리 운영
             </div>
 
             <h1>
               강의 PDF를
               <br />
-              바로 시험용 자료로
+              필기와 문제지로
               <br />
-              바꾸는 앱.
+              바로 연결하는 앱.
             </h1>
 
             <p class="hero-copy">
-              필기 앱, 플래시카드 앱, 해부학 가리기 도구를 따로 쓰지 않게 하려고 만들었습니다.
-              PDF 위에서 필기하고, 구조물을 가리고, 답을 적고, AI로 다시 묻는 흐름을 한 제품 안에 묶었습니다.
+              수업 자료를 읽고 끝내는 앱이 아니라, 강의 PDF에서 바로 복습 자료를 만드는 쪽에 맞췄습니다.
+              해부학 그림을 가리고, 답을 적고, 인쇄하고, 다시 AI로 묻는 흐름을 한 제품 안에 묶었습니다.
             </p>
 
             <div class="hero-actions">
@@ -1010,366 +990,370 @@
                 Mac용 직접 다운로드
               </a>
               <a class="button secondary" href="https://github.com/dongwook9805/vibestudying-releases/releases/latest">
-                최신 릴리즈 보기
+                최신 릴리즈
               </a>
             </div>
 
-            <div class="hero-tags">
-              <span class="hero-tag">Apple Silicon Mac</span>
-              <span class="hero-tag">macOS 12+</span>
-              <span class="hero-tag">앱 안 자동 업데이트</span>
-              <span class="hero-tag">현재 버전 2.0.14</span>
+            <div class="hero-meta">
+              <span class="meta-chip">Apple Silicon Mac</span>
+              <span class="meta-chip">macOS 12+</span>
+              <span class="meta-chip">앱 안 자동 업데이트</span>
+              <span class="meta-chip">현재 버전 2.0.14</span>
             </div>
 
-            <div class="track-block">
-              <p class="eyebrow">For Students Who Study From Files</p>
-              <div class="track-list">
-                <span class="track">해부학</span>
-                <span class="track">의학</span>
-                <span class="track">간호학</span>
-                <span class="track">치대</span>
-                <span class="track">시험 복습</span>
-                <span class="track">강의 PDF</span>
+            <div class="track-line">
+              <p class="eyebrow">Built For</p>
+              <div class="track-grid">
+                <span class="track-pill">해부학</span>
+                <span class="track-pill">의학</span>
+                <span class="track-pill">간호학</span>
+                <span class="track-pill">시험 복습</span>
+                <span class="track-pill">강의 PDF</span>
+                <span class="track-pill">그림 기반 암기</span>
               </div>
             </div>
           </div>
 
-          <div class="showcase">
-            <div class="blur-a"></div>
-            <div class="blur-b"></div>
-
-            <div class="showcase-panel">
-              <div class="workspace">
-                <div class="workspace-top">
-                  <div>
-                    <div class="mini-eyebrow">Study Workspace</div>
+          <div class="mock-wrap">
+            <div class="mock">
+              <div class="mock-window">
+                <div class="mock-topbar">
+                  <div class="dot-row">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                  <div class="mock-title">
+                    <small>Study Scene</small>
                     <strong>Anatomy Lecture.pdf</strong>
                   </div>
-                  <div class="workspace-badge">Mac direct build</div>
+                  <div class="mock-badge">Mac direct</div>
                 </div>
 
-                <div class="workspace-grid">
-                  <div class="canvas-card">
-                    <div class="canvas-card-top">
-                      <span>Occlusion Quiz</span>
+                <div class="mock-body">
+                  <div class="figure-card">
+                    <div class="figure-head">
+                      <span>Image Occlusion</span>
                       <span>Page 18</span>
                     </div>
 
-                    <div class="figure">
-                      <div class="occlusion o1"></div>
-                      <div class="occlusion o2"></div>
-                      <div class="occlusion o3"></div>
+                    <div class="figure-box">
+                      <div class="shape one"></div>
+                      <div class="shape two"></div>
+                      <div class="shape three"></div>
 
-                      <div class="num n1">1</div>
-                      <div class="num n2">2</div>
-                      <div class="num n3">3</div>
+                      <div class="badge-number one">1</div>
+                      <div class="badge-number two">2</div>
+                      <div class="badge-number three">3</div>
 
-                      <div class="figure-note">
-                        OCR 초안, 번호 조정, 인쇄용 퀴즈까지 한 화면에서 이어집니다.
+                      <div class="figure-footer">
+                        OCR 초안, 번호 위치 조정, 인쇄용 문제지까지 한 흐름으로 이어집니다.
                       </div>
                     </div>
                   </div>
 
-                  <div class="side-stack">
-                    <div class="stack-card-dark">
-                      <div class="mini-eyebrow">Answer Flow</div>
-                      <div class="answers">
-                        <div class="answer">1. Deltoid tuberosity</div>
-                        <div class="answer">2. Greater tubercle</div>
-                        <div class="answer">3. Surgical neck</div>
+                  <div class="side-column">
+                    <div class="side-card">
+                      <p class="eyebrow">Answer Flow</p>
+                      <div class="answer-list">
+                        <div class="answer-chip">1. Deltoid tuberosity</div>
+                        <div class="answer-chip">2. Greater tubercle</div>
+                        <div class="answer-chip">3. Surgical neck</div>
                       </div>
                     </div>
 
-                    <div class="stack-card-ink">
-                      <div class="mini-eyebrow">Modules</div>
-                      <div class="tools">
-                        <span class="tool">PDF 필기</span>
-                        <span class="tool">밑줄 메모</span>
-                        <span class="tool">페이지 노트</span>
-                        <span class="tool">AI 질문</span>
-                        <span class="tool">플래시카드</span>
-                        <span class="tool">가리기 카드</span>
-                      </div>
-                    </div>
-
-                    <div class="stack-card-dark">
-                      <div class="mini-eyebrow">Updates</div>
-                      <div class="stack-note">
-                        direct 다운로드 버전은 새 릴리즈가 올라오면 앱 안에서 업데이트 알림을 띄웁니다.
+                    <div class="side-card">
+                      <p class="eyebrow">Modules</p>
+                      <div class="tool-grid">
+                        <span class="tool-chip">PDF 필기</span>
+                        <span class="tool-chip">페이지 노트</span>
+                        <span class="tool-chip">밑줄 메모</span>
+                        <span class="tool-chip">플래시카드</span>
+                        <span class="tool-chip">AI 질문</span>
+                        <span class="tool-chip">인쇄용 퀴즈</span>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div class="showcase-bottom">
-                <div class="mini-card">
-                  <div class="mini-eyebrow">PDF Workspace</div>
-                  <strong>문서 위에서 바로 필기와 복습 준비</strong>
-                  <p>PDF를 보면서 밑줄, 페이지 노트, 자유 필기를 하고 바로 다음 복습 흐름으로 넘깁니다.</p>
-                </div>
-                <div class="mini-card">
-                  <div class="mini-eyebrow">Image Occlusion</div>
-                  <strong>해부학 그림을 문제로 바꾸는 속도</strong>
-                  <p>캡처, OCR 초안, 번호 위치 조정, 답 입력, 인쇄용 문제지까지 한 번에 이어집니다.</p>
-                </div>
-                <div class="mini-card">
-                  <div class="mini-eyebrow">Study Loop</div>
-                  <strong>AI 질문과 플래시카드를 같은 자료 위에서</strong>
-                  <p>문서에서 질문하고, 개념을 정리하고, 카드로 다시 복습하는 흐름을 쪼개지 않습니다.</p>
-                </div>
+              <div class="feature-strip">
+                <article>
+                  <p class="eyebrow">Workspace</p>
+                  <strong>문서에서 바로 필기와 복습 준비</strong>
+                  <p>읽기용 PDF 뷰어가 아니라, 필기와 복습 제작을 한 화면에서 연결합니다.</p>
+                </article>
+                <article>
+                  <p class="eyebrow">Anatomy</p>
+                  <strong>그림 기반 시험 복습에 강한 구조</strong>
+                  <p>캡처에서 가리기 카드, 정답 확인, 인쇄용 문제지까지 바로 이어집니다.</p>
+                </article>
+                <article>
+                  <p class="eyebrow">Update</p>
+                  <strong>Mac direct 버전은 자동 업데이트</strong>
+                  <p>새 릴리즈가 올라오면 앱 안에서 알림을 띄우고 자동으로 내려받습니다.</p>
+                </article>
               </div>
             </div>
           </div>
         </section>
 
-        <section id="why" class="block">
-          <div class="why-wrap">
+        <section class="section" id="features">
+          <div class="section-head">
             <div>
-              <p class="eyebrow">Why It Works</p>
+              <p class="eyebrow">Why VibeStudying</p>
               <h2 class="section-title">
                 공부 앱을
                 <br />
-                옮겨 다니지 않게.
-              </h2>
-            </div>
-
-            <div class="why-cards">
-              <article class="why-card">
-                <p class="eyebrow">Workspace</p>
-                <h3>문서 읽기 앱이 아니라, 공부 재료를 만드는 화면</h3>
-                <p>
-                  VibeStudying는 PDF 열람, 필기, OCR, 카드 생성, AI 질문을 따로 분리하지 않습니다.
-                  강의 자료를 바로 복습 자료로 바꾸는 데 초점을 맞춥니다.
-                </p>
-                <div class="chip-list">
-                  <span class="chip">PDF 필기</span>
-                  <span class="chip">밑줄 메모</span>
-                  <span class="chip">페이지 노트</span>
-                  <span class="chip">페이지 이동</span>
-                </div>
-              </article>
-
-              <article class="why-card blue">
-                <p class="eyebrow">Anatomy First</p>
-                <h3>해부학 중심 흐름에 맞춘 이미지 가리기 카드</h3>
-                <p>
-                  가려진 영역을 OCR로 초안화하고, 번호 위치를 조정하고, 답을 입력하고, 인쇄용 문제지까지 연결합니다.
-                  단순 카드보다 실전 암기와 출력 복습에 더 가깝습니다.
-                </p>
-                <div class="chip-list">
-                  <span class="chip">OCR 초안</span>
-                  <span class="chip">번호 위치 편집</span>
-                  <span class="chip">정답 확인</span>
-                  <span class="chip">인쇄용 퀴즈</span>
-                </div>
-              </article>
-
-              <article class="why-card">
-                <p class="eyebrow">Distribution</p>
-                <h3>Mac direct, iOS App Store로 운영을 분리</h3>
-                <p>
-                  Mac은 더 빠르게 배포하고 자동 업데이트를 제공하고, iPad/iPhone은 App Store 기준으로 안정적으로 확장합니다.
-                  같은 제품이지만 운영 채널은 다르게 가져갑니다.
-                </p>
-                <div class="chip-list">
-                  <span class="chip">Mac direct</span>
-                  <span class="chip">자동 업데이트</span>
-                  <span class="chip">iOS App Store</span>
-                  <span class="chip">현재 v2.0.14</span>
-                </div>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <section id="flow" class="block">
-          <div class="flow-header">
-            <div>
-              <p class="eyebrow">Study Flow</p>
-              <h2 class="section-title">
-                수업 자료에서
-                <br />
-                복습 루프까지 한 번에.
+                여러 개 옮겨 다니지 않게.
               </h2>
             </div>
             <p class="section-copy">
-              강의 자료를 먼저 읽고 나중에 문제를 만드는 방식이 아니라, 문서 위에서 바로 복습용 자료를 만들어 다음 공부 세션으로 이어갑니다.
+              PDF를 읽는 단계와 복습 자료를 만드는 단계를 분리하지 않습니다. 문서 위에서 필기하고, 중요한 구조물을 가리고,
+              카드를 만들고, 다시 질문하는 흐름을 하나로 이어갑니다.
             </p>
           </div>
 
-          <div class="flow-grid">
-            <article class="flow-card">
-              <p class="eyebrow">Step 01</p>
-              <h3>강의 PDF를 연다</h3>
-              <p>문서 위에 하이라이트, 밑줄 메모, 페이지 노트를 쌓으면서 수업 흐름을 그대로 유지합니다.</p>
+          <div class="grid-3">
+            <article class="card">
+              <p class="eyebrow">Document First</p>
+              <h3>문서 읽기 앱이 아니라, 공부 재료를 만드는 화면</h3>
+              <p>
+                PDF를 중심으로 페이지 노트, 밑줄 메모, 자유 필기를 바로 붙여 수업 흐름을 끊지 않게 설계했습니다.
+              </p>
+              <div class="chip-line">
+                <span class="chip">PDF 필기</span>
+                <span class="chip">밑줄 메모</span>
+                <span class="chip">페이지 이동</span>
+              </div>
             </article>
 
-            <article class="flow-card soft">
-              <p class="eyebrow">Step 02</p>
-              <h3>중요 그림을 캡처한다</h3>
-              <p>해부학 도판이나 표를 바로 캡처해서 이미지 가리기 카드 초안으로 넘깁니다.</p>
+            <article class="card blue">
+              <p class="eyebrow">Anatomy Focus</p>
+              <h3>해부학 그림을 문제로 바꾸는 속도에 집중</h3>
+              <p>
+                가려진 영역 OCR 초안, 번호 위치 조정, 정답 입력, 인쇄용 출력까지 해부학 복습 흐름에 맞춰 정리했습니다.
+              </p>
+              <div class="chip-line">
+                <span class="chip">OCR 초안</span>
+                <span class="chip">번호 조정</span>
+                <span class="chip">PDF 출력</span>
+              </div>
             </article>
 
-            <article class="flow-card">
-              <p class="eyebrow">Step 03</p>
-              <h3>가리기 카드와 문제지를 만든다</h3>
-              <p>OCR 초안을 다듬고 번호 위치를 정리한 뒤, 학습 카드와 인쇄용 퀴즈를 같이 만듭니다.</p>
-            </article>
-
-            <article class="flow-card dark">
-              <p class="eyebrow">Step 04</p>
-              <h3>Mac에서 계속 업데이트 받는다</h3>
-              <p>direct 다운로드 버전은 앱 안에서 자동 업데이트를 받고, iPad는 App Store 채널로 따로 관리합니다.</p>
+            <article class="card alt">
+              <p class="eyebrow">One Loop</p>
+              <h3>AI 질문, 카드, 인쇄를 같은 자료 위에서</h3>
+              <p>
+                PDF 옆에서 바로 질문하고, 카드로 넘기고, 문제지까지 만드는 쪽으로 기능을 붙였습니다.
+              </p>
+              <div class="chip-line">
+                <span class="chip">AI 질문</span>
+                <span class="chip">플래시카드</span>
+                <span class="chip">인쇄용 퀴즈</span>
+              </div>
             </article>
           </div>
         </section>
 
-        <section id="platforms" class="block">
-          <div class="platform-wrap">
+        <section class="section" id="flow">
+          <div class="section-head">
             <div>
-              <p class="eyebrow">Distribution</p>
+              <p class="eyebrow">Workflow</p>
               <h2 class="section-title">
-                Mac은 빠르게,
+                수업 PDF에서
                 <br />
-                iOS는 안정적으로.
+                복습 루프까지.
               </h2>
-              <p class="section-copy">
-                운영 채널을 나눠서 제품 리듬을 맞춥니다. Mac은 direct 다운로드로 빠르게 배포하고, iPad/iPhone은 App Store 제출 기준으로 완성도를 올립니다.
-              </p>
-              <div class="platform-actions">
-                <a class="button ghost" href="#help">개인정보 처리방침</a>
-                <a class="button ghost" href="#help">지원</a>
-                <a class="button ghost" href="https://github.com/dongwook9805/vibestudying-releases/releases/latest">GitHub Releases</a>
+            </div>
+            <p class="section-copy">
+              읽고 끝내는 방식이 아니라, 문서 위에서 바로 시험 복습용 재료를 만드는 흐름을 기준으로 페이지를 설계했습니다.
+            </p>
+          </div>
+
+          <div class="grid-4">
+            <article class="card flow-card">
+              <p class="eyebrow">Step 01</p>
+              <h3>강의 PDF를 연다</h3>
+              <p>하이라이트, 밑줄 메모, 페이지 노트를 문서 위에 바로 쌓습니다.</p>
+            </article>
+
+            <article class="card alt flow-card">
+              <p class="eyebrow">Step 02</p>
+              <h3>중요 그림을 캡처한다</h3>
+              <p>해부학 도판이나 표를 바로 가져와 이미지 가리기 카드 초안으로 넘깁니다.</p>
+            </article>
+
+            <article class="card flow-card">
+              <p class="eyebrow">Step 03</p>
+              <h3>문제와 답안을 정리한다</h3>
+              <p>OCR 초안을 고치고 번호 위치를 조정한 뒤 학습 카드와 출력용 퀴즈를 함께 만듭니다.</p>
+            </article>
+
+            <article class="card dark flow-card">
+              <p class="eyebrow">Step 04</p>
+              <h3>Mac에서 계속 업데이트 받는다</h3>
+              <p>direct 다운로드 버전은 새 릴리즈가 올라오면 앱 안에서 자동으로 업데이트됩니다.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="platforms">
+          <div class="distribution">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow" style="color: rgba(255,255,255,0.48);">Distribution</p>
+                <h2 class="section-title" style="color: white;">
+                  Mac은 빠르게,
+                  <br />
+                  iOS는 안정적으로.
+                </h2>
               </div>
+              <p class="section-copy">
+                운영 채널을 분리해 제품 리듬을 맞춥니다. Mac은 direct 다운로드로 빠르게 배포하고, iPad/iPhone은 App Store 기준으로 완성도를 올립니다.
+              </p>
             </div>
 
-            <div class="platform-grid">
+            <div class="grid-2">
               <article class="platform-card">
                 <div class="platform-head">
                   <h3>Mac</h3>
-                  <div class="platform-status">지금 바로 사용 가능</div>
+                  <span class="platform-status">지금 바로 사용 가능</span>
                 </div>
-                <p>
-                  홈페이지에서 직접 다운로드하고, 다음 버전부터는 앱 안에서 자동 업데이트를 받습니다.
-                </p>
-                <div class="chip-list">
-                  <span class="chip">Apple Silicon Mac</span>
-                  <span class="chip">macOS 12+</span>
-                  <span class="chip">현재 2.0.14</span>
+                <p>홈페이지에서 직접 다운로드하고, 이후 버전부터는 앱 안에서 자동 업데이트를 받습니다.</p>
+                <div class="chip-line">
+                  <span class="chip" style="background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.92);">Apple Silicon Mac</span>
+                  <span class="chip" style="background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.92);">macOS 12+</span>
+                  <span class="chip" style="background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.92);">v2.0.14</span>
                 </div>
                 <div class="platform-actions">
                   <a
                     class="button light"
                     href="https://github.com/dongwook9805/vibestudying-releases/releases/download/v2.0.14/VibeStudying-2.0.14-arm64.dmg"
                   >
-                    Mac용 다운로드
+                    Mac 다운로드
                   </a>
-                  <a class="button ghost" href="https://github.com/dongwook9805/vibestudying-releases/releases/latest">최신 릴리즈</a>
+                  <a class="button dark-secondary" href="https://github.com/dongwook9805/vibestudying-releases/releases/latest">
+                    최신 릴리즈
+                  </a>
                 </div>
               </article>
 
               <article class="platform-card">
                 <div class="platform-head">
                   <h3>iPad / iPhone</h3>
-                  <div class="platform-status">App Store 준비 중</div>
+                  <span class="platform-status">App Store 준비 중</span>
                 </div>
-                <p>
-                  모바일은 App Store와 TestFlight 중심으로 관리합니다. 지금은 Mac을 먼저 배포하고, iOS는 심사 가능한 앱 형태로 이어갑니다.
-                </p>
-                <div class="chip-list">
-                  <span class="chip">App Store 배포</span>
-                  <span class="chip">Touch UI 최적화 진행</span>
-                  <span class="chip">모바일 클라이언트 준비 중</span>
+                <p>모바일은 App Store와 TestFlight 중심으로 관리합니다. 지금은 Mac direct 채널이 메인 배포 경로입니다.</p>
+                <div class="chip-line">
+                  <span class="chip" style="background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.92);">App Store</span>
+                  <span class="chip" style="background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.92);">TestFlight</span>
+                  <span class="chip" style="background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.92);">모바일 클라이언트 준비 중</span>
                 </div>
                 <div class="platform-actions">
                   <div class="button disabled">출시 준비 중</div>
-                  <a class="button ghost" href="#help">지원 페이지</a>
+                  <a class="button dark-secondary" href="#support">지원 / 개인정보</a>
                 </div>
               </article>
             </div>
           </div>
         </section>
 
-        <section id="help" class="block">
-          <div class="help-wrap">
+        <section class="section" id="support">
+          <div class="support-wrap">
             <div>
               <p class="eyebrow">Support & Privacy</p>
               <h2 class="section-title">
                 지원 정보와
                 <br />
-                개인정보 관련 문구.
+                개인정보 처리방침.
               </h2>
               <p class="section-copy">
-                App Store 제출에 필요한 정보와 사용자가 확인할 수 있는 지원/개인정보 문구를 한 페이지 안에 같이 정리합니다. 현재 Mac 앱 기준 내용으로 유지합니다.
+                Mac 앱 기준으로 현재 공개 가능한 지원 / 개인정보 문구를 한 페이지 안에서 확인할 수 있게 정리했습니다.
               </p>
             </div>
 
-            <div class="tab-shell">
-              <div class="tab-buttons" role="tablist" aria-label="Support and privacy tabs">
-                <button class="tab-button active" type="button" role="tab" aria-selected="true" aria-controls="tab-support" data-tab-target="support">
+            <div>
+              <div class="tab-bar" role="tablist" aria-label="Support tabs">
+                <button
+                  class="tab-button active"
+                  type="button"
+                  role="tab"
+                  aria-selected="true"
+                  aria-controls="support-panel"
+                  data-tab-target="support"
+                >
                   지원
                 </button>
-                <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="tab-privacy" data-tab-target="privacy">
+                <button
+                  class="tab-button"
+                  type="button"
+                  role="tab"
+                  aria-selected="false"
+                  aria-controls="privacy-panel"
+                  data-tab-target="privacy"
+                >
                   개인정보 처리방침
                 </button>
               </div>
 
-              <section id="tab-support" class="tab-panel active" role="tabpanel" data-tab-panel="support">
-                <h3>Support</h3>
-                <p>
-                  VibeStudying 사용 중 PDF 불러오기, 폴더 관리, 이미지 가리기 카드, 인쇄, AI 기능 설정 관련 문제가 있으면 아래 주소로 문의할 수 있습니다.
-                </p>
-                <a class="contact-link" href="mailto:support@vibestudying.app">support@vibestudying.app</a>
-                <ul>
-                  <li>PDF import and folder management</li>
-                  <li>Highlights, page notes, and drawing tools</li>
-                  <li>Flashcards and image occlusion cards</li>
-                  <li>Optional AI feature setup</li>
-                  <li>Printing and PDF export</li>
-                </ul>
-              </section>
+              <div class="tab-panels">
+                <section class="tab-panel active" id="support-panel" role="tabpanel" data-tab-panel="support">
+                  <h3>Support</h3>
+                  <p>
+                    PDF 불러오기, 폴더 관리, 이미지 가리기 카드, 인쇄, AI 기능 설정 관련 문제가 있으면 아래 주소로 문의할 수 있습니다.
+                  </p>
+                  <a class="contact-link" href="mailto:support@vibestudying.app">support@vibestudying.app</a>
+                  <ul>
+                    <li>PDF import and folder management</li>
+                    <li>Highlights, page notes, and drawing tools</li>
+                    <li>Flashcards and image occlusion cards</li>
+                    <li>Optional AI feature setup</li>
+                    <li>Printing and PDF export</li>
+                  </ul>
+                </section>
 
-              <section id="tab-privacy" class="tab-panel" role="tabpanel" data-tab-panel="privacy">
-                <h3>Privacy Policy</h3>
-                <p>
-                  VibeStudying는 계정 가입 없이 사용할 수 있으며, 대부분의 학습 데이터는 사용자의 기기 안에 로컬로 저장됩니다.
-                </p>
-                <p>앱은 다음 정보를 사용자의 기기 안에서 로컬로 처리할 수 있습니다.</p>
-                <ul>
-                  <li>Imported PDF files and file names</li>
-                  <li>Highlights, notes, lecture notes, and drawings</li>
-                  <li>Flashcards and image occlusion study data</li>
-                  <li>Optional API key entered by you for AI features</li>
-                </ul>
-                <p>
-                  AI 기능을 사용할 경우, 사용자가 직접 선택한 텍스트나 이미지 일부가 설명 생성, OCR 초안, 플래시카드 생성, 분석 결과 생성을 위해 외부 AI 서비스로 전송될 수 있습니다. 이 기능은 선택 사항입니다.
-                </p>
-                <p>
-                  우리는 개인 데이터를 판매하지 않으며, 원격 AI 기능을 사용자가 직접 실행한 경우에만 필요한 내용이 외부 AI 서비스로 전달됩니다.
-                </p>
-                <p>파일 접근 권한은 사용자가 직접 파일을 불러오거나 저장하거나 내보낼 때만 요청됩니다.</p>
-                <p>
-                  개인정보 관련 문의는
-                  <a class="contact-link" href="mailto:support@vibestudying.app"> support@vibestudying.app</a>
-                  로 받을 수 있습니다.
-                </p>
-              </section>
+                <section class="tab-panel" id="privacy-panel" role="tabpanel" data-tab-panel="privacy">
+                  <h3>Privacy Policy</h3>
+                  <p>
+                    VibeStudying는 계정 가입 없이 사용할 수 있으며, 대부분의 학습 데이터는 사용자의 기기 안에 로컬로 저장됩니다.
+                  </p>
+                  <p>앱은 다음 정보를 사용자의 기기 안에서 로컬로 처리할 수 있습니다.</p>
+                  <ul>
+                    <li>Imported PDF files and file names</li>
+                    <li>Highlights, notes, lecture notes, and drawings</li>
+                    <li>Flashcards and image occlusion study data</li>
+                    <li>Optional API key entered by you for AI features</li>
+                  </ul>
+                  <p>
+                    AI 기능을 사용할 경우, 사용자가 직접 선택한 텍스트나 이미지 일부가 설명 생성, OCR 초안, 플래시카드 생성, 분석 결과 생성을 위해 외부 AI 서비스로 전송될 수 있습니다. 이 기능은 선택 사항입니다.
+                  </p>
+                  <p>
+                    우리는 개인 데이터를 판매하지 않으며, 원격 AI 기능을 사용자가 직접 실행한 경우에만 필요한 내용이 외부 AI 서비스로 전달됩니다.
+                  </p>
+                  <p>파일 접근 권한은 사용자가 직접 파일을 불러오거나 저장하거나 내보낼 때만 요청됩니다.</p>
+                  <p>
+                    개인정보 관련 문의는
+                    <a class="contact-link" href="mailto:support@vibestudying.app"> support@vibestudying.app</a>
+                    로 받을 수 있습니다.
+                  </p>
+                </section>
+              </div>
             </div>
           </div>
         </section>
 
-        <section id="faq" class="block">
+        <section class="section" id="faq">
           <div class="faq-wrap">
             <div>
               <p class="eyebrow">FAQ</p>
               <h2 class="section-title">
-                설치와 운영 방식은
+                설치와 운영 방식을
                 <br />
-                이렇게 정리합니다.
+                먼저 정리합니다.
               </h2>
               <p class="section-copy">
-                direct 다운로드와 App Store를 같이 운영하되, 역할을 다르게 잡습니다. 가장 많이 헷갈리는 부분을 먼저 정리했습니다.
+                direct 다운로드와 App Store를 동시에 언급할 때 헷갈리는 지점을 먼저 풀어놓았습니다.
               </p>
             </div>
 
@@ -1419,34 +1403,35 @@
 
         <footer>
           <div>© 2026 VibeStudying. Mac direct distribution.</div>
-          <div class="links">
-            <a href="#help">지원</a>
-            <a href="#help">개인정보 처리방침</a>
+          <nav>
+            <a href="#support">지원</a>
+            <a href="#support">개인정보 처리방침</a>
             <a href="https://github.com/dongwook9805/vibestudying-releases/releases/latest">Releases</a>
-          </div>
+          </nav>
         </footer>
       </main>
     </div>
+
     <script>
       (function () {
-        const buttons = Array.from(document.querySelectorAll('[data-tab-target]'));
-        const panels = Array.from(document.querySelectorAll('[data-tab-panel]'));
+        const buttons = Array.from(document.querySelectorAll("[data-tab-target]"));
+        const panels = Array.from(document.querySelectorAll("[data-tab-panel]"));
 
         function activateTab(name) {
           buttons.forEach((button) => {
-            const active = button.getAttribute('data-tab-target') === name;
-            button.classList.toggle('active', active);
-            button.setAttribute('aria-selected', active ? 'true' : 'false');
+            const active = button.getAttribute("data-tab-target") === name;
+            button.classList.toggle("active", active);
+            button.setAttribute("aria-selected", active ? "true" : "false");
           });
 
           panels.forEach((panel) => {
-            panel.classList.toggle('active', panel.getAttribute('data-tab-panel') === name);
+            panel.classList.toggle("active", panel.getAttribute("data-tab-panel") === name);
           });
         }
 
         buttons.forEach((button) => {
-          button.addEventListener('click', function () {
-            activateTab(button.getAttribute('data-tab-target'));
+          button.addEventListener("click", function () {
+            activateTab(button.getAttribute("data-tab-target"));
           });
         });
       })();
