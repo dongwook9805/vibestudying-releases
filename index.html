@@ -735,6 +735,89 @@
         margin-bottom: 52px;
       }
 
+      .help-wrap {
+        display: grid;
+        grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+        gap: 28px;
+        padding: 28px;
+        border-radius: 32px;
+        border: 1px solid var(--line);
+        background: #fcfaf4;
+        box-shadow: 0 18px 52px rgba(25, 35, 46, 0.08);
+      }
+
+      .tab-shell {
+        display: grid;
+        gap: 14px;
+      }
+
+      .tab-buttons {
+        display: inline-flex;
+        width: fit-content;
+        gap: 8px;
+        padding: 6px;
+        border-radius: 999px;
+        background: #ece5d8;
+      }
+
+      .tab-button {
+        border: 0;
+        border-radius: 999px;
+        padding: 12px 18px;
+        background: transparent;
+        color: #526067;
+        font-size: 14px;
+        font-weight: 800;
+        cursor: pointer;
+        transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+      }
+
+      .tab-button.active {
+        background: #172028;
+        color: #ffffff;
+      }
+
+      .tab-button:hover {
+        transform: translateY(-1px);
+      }
+
+      .tab-panel {
+        display: none;
+        border-radius: 24px;
+        border: 1px solid var(--line-soft);
+        background: #f3ede2;
+        padding: 22px;
+      }
+
+      .tab-panel.active {
+        display: block;
+      }
+
+      .tab-panel h3 {
+        margin: 0;
+        font-size: 26px;
+        color: #152029;
+      }
+
+      .tab-panel p,
+      .tab-panel li {
+        font-size: 14px;
+        line-height: 1.8;
+        color: var(--muted);
+      }
+
+      .tab-panel ul {
+        margin: 12px 0 0;
+        padding-left: 20px;
+      }
+
+      .contact-link {
+        display: inline-flex;
+        margin-top: 8px;
+        color: var(--blue);
+        font-weight: 700;
+      }
+
       .faq-list {
         display: grid;
         gap: 12px;
@@ -797,7 +880,8 @@
         .hero,
         .why-wrap,
         .platform-wrap,
-        .faq-wrap {
+        .faq-wrap,
+        .help-wrap {
           grid-template-columns: 1fr;
         }
 
@@ -855,6 +939,14 @@
           flex-direction: column;
           align-items: flex-start;
         }
+
+        .tab-buttons {
+          width: 100%;
+        }
+
+        .tab-button {
+          flex: 1 1 0;
+        }
       }
     </style>
   </head>
@@ -878,7 +970,7 @@
           </nav>
 
           <div class="nav-actions">
-            <a class="button secondary" href="app-store-page.html">지원 / 개인정보</a>
+            <a class="button secondary" href="#help">지원 / 개인정보</a>
             <a
               class="button primary"
               href="https://github.com/dongwook9805/vibestudying-releases/releases/download/v2.0.14/VibeStudying-2.0.14-arm64.dmg"
@@ -1146,8 +1238,8 @@
                 운영 채널을 나눠서 제품 리듬을 맞춥니다. Mac은 direct 다운로드로 빠르게 배포하고, iPad/iPhone은 App Store 제출 기준으로 완성도를 올립니다.
               </p>
               <div class="platform-actions">
-                <a class="button ghost" href="app-store-page.html">개인정보 처리방침</a>
-                <a class="button ghost" href="app-store-page.html">지원</a>
+                <a class="button ghost" href="#help">개인정보 처리방침</a>
+                <a class="button ghost" href="#help">지원</a>
                 <a class="button ghost" href="https://github.com/dongwook9805/vibestudying-releases/releases/latest">GitHub Releases</a>
               </div>
             </div>
@@ -1192,9 +1284,77 @@
                 </div>
                 <div class="platform-actions">
                   <div class="button disabled">출시 준비 중</div>
-                  <a class="button ghost" href="app-store-page.html">지원 페이지</a>
+                  <a class="button ghost" href="#help">지원 페이지</a>
                 </div>
               </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="help" class="block">
+          <div class="help-wrap">
+            <div>
+              <p class="eyebrow">Support & Privacy</p>
+              <h2 class="section-title">
+                지원 정보와
+                <br />
+                개인정보 관련 문구.
+              </h2>
+              <p class="section-copy">
+                App Store 제출에 필요한 정보와 사용자가 확인할 수 있는 지원/개인정보 문구를 한 페이지 안에 같이 정리합니다. 현재 Mac 앱 기준 내용으로 유지합니다.
+              </p>
+            </div>
+
+            <div class="tab-shell">
+              <div class="tab-buttons" role="tablist" aria-label="Support and privacy tabs">
+                <button class="tab-button active" type="button" role="tab" aria-selected="true" aria-controls="tab-support" data-tab-target="support">
+                  지원
+                </button>
+                <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="tab-privacy" data-tab-target="privacy">
+                  개인정보 처리방침
+                </button>
+              </div>
+
+              <section id="tab-support" class="tab-panel active" role="tabpanel" data-tab-panel="support">
+                <h3>Support</h3>
+                <p>
+                  VibeStudying 사용 중 PDF 불러오기, 폴더 관리, 이미지 가리기 카드, 인쇄, AI 기능 설정 관련 문제가 있으면 아래 주소로 문의할 수 있습니다.
+                </p>
+                <a class="contact-link" href="mailto:support@vibestudying.app">support@vibestudying.app</a>
+                <ul>
+                  <li>PDF import and folder management</li>
+                  <li>Highlights, page notes, and drawing tools</li>
+                  <li>Flashcards and image occlusion cards</li>
+                  <li>Optional AI feature setup</li>
+                  <li>Printing and PDF export</li>
+                </ul>
+              </section>
+
+              <section id="tab-privacy" class="tab-panel" role="tabpanel" data-tab-panel="privacy">
+                <h3>Privacy Policy</h3>
+                <p>
+                  VibeStudying는 계정 가입 없이 사용할 수 있으며, 대부분의 학습 데이터는 사용자의 기기 안에 로컬로 저장됩니다.
+                </p>
+                <p>앱은 다음 정보를 사용자의 기기 안에서 로컬로 처리할 수 있습니다.</p>
+                <ul>
+                  <li>Imported PDF files and file names</li>
+                  <li>Highlights, notes, lecture notes, and drawings</li>
+                  <li>Flashcards and image occlusion study data</li>
+                  <li>Optional API key entered by you for AI features</li>
+                </ul>
+                <p>
+                  AI 기능을 사용할 경우, 사용자가 직접 선택한 텍스트나 이미지 일부가 설명 생성, OCR 초안, 플래시카드 생성, 분석 결과 생성을 위해 외부 AI 서비스로 전송될 수 있습니다. 이 기능은 선택 사항입니다.
+                </p>
+                <p>
+                  우리는 개인 데이터를 판매하지 않으며, 원격 AI 기능을 사용자가 직접 실행한 경우에만 필요한 내용이 외부 AI 서비스로 전달됩니다.
+                </p>
+                <p>파일 접근 권한은 사용자가 직접 파일을 불러오거나 저장하거나 내보낼 때만 요청됩니다.</p>
+                <p>
+                  개인정보 관련 문의는
+                  <a class="contact-link" href="mailto:support@vibestudying.app"> support@vibestudying.app</a>
+                  로 받을 수 있습니다.
+                </p>
+              </section>
             </div>
           </div>
         </section>
@@ -1260,12 +1420,36 @@
         <footer>
           <div>© 2026 VibeStudying. Mac direct distribution.</div>
           <div class="links">
-            <a href="app-store-page.html">지원</a>
-            <a href="app-store-page.html">개인정보 처리방침</a>
+            <a href="#help">지원</a>
+            <a href="#help">개인정보 처리방침</a>
             <a href="https://github.com/dongwook9805/vibestudying-releases/releases/latest">Releases</a>
           </div>
         </footer>
       </main>
     </div>
+    <script>
+      (function () {
+        const buttons = Array.from(document.querySelectorAll('[data-tab-target]'));
+        const panels = Array.from(document.querySelectorAll('[data-tab-panel]'));
+
+        function activateTab(name) {
+          buttons.forEach((button) => {
+            const active = button.getAttribute('data-tab-target') === name;
+            button.classList.toggle('active', active);
+            button.setAttribute('aria-selected', active ? 'true' : 'false');
+          });
+
+          panels.forEach((panel) => {
+            panel.classList.toggle('active', panel.getAttribute('data-tab-panel') === name);
+          });
+        }
+
+        buttons.forEach((button) => {
+          button.addEventListener('click', function () {
+            activateTab(button.getAttribute('data-tab-target'));
+          });
+        });
+      })();
+    </script>
   </body>
 </html>
