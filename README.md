@@ -9,6 +9,7 @@
 
 - Site: `https://dongwook9805.github.io/vibestudying-releases/`
 - Releases: `https://github.com/dongwook9805/vibestudying-releases/releases`
+- Feedback board: `https://github.com/dongwook9805/vibestudying-releases/issues`
 
 ## Mac 배포
 
