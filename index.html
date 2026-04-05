@@ -3,10 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>VibeStudying</title>
+    <title>Camto</title>
+    <link rel="icon" href="./assets/camto-mark.svg" type="image/svg+xml" />
     <meta
       name="description"
-      content="PDF를 읽고, 표시하고, 바로 복습하는 데스크톱 학습 앱. Mac과 Windows는 홈페이지 direct 다운로드, iPad와 iPhone은 App Store로 제공합니다."
+      content="Camto는 PDF를 읽고, 표시하고, 바로 복습으로 넘기는 데스크톱 학습 앱입니다. Mac과 Windows는 direct 다운로드, iPad와 iPhone은 App Store로 제공합니다."
     />
     <style>
       :root {
@@ -73,12 +74,10 @@
         letter-spacing: -0.02em;
       }
 
-      .brand-dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 999px;
-        background: #111827;
-        box-shadow: 0 0 0 8px rgba(17, 24, 39, 0.08);
+      .brand-mark {
+        width: 28px;
+        height: 28px;
+        display: block;
       }
 
       .nav-links {
@@ -602,9 +601,9 @@
   <body>
     <div class="shell">
       <header class="nav">
-        <a class="brand" href="#top" aria-label="VibeStudying 홈">
-          <span class="brand-dot"></span>
-          <span>VibeStudying</span>
+        <a class="brand" href="#top" aria-label="Camto 홈">
+          <img class="brand-mark" src="./assets/camto-mark.svg" alt="" />
+          <span>Camto</span>
         </a>
         <nav class="nav-links">
           <a href="#download">Download</a>
@@ -634,7 +633,7 @@
 
           <div class="visual-wrap">
             <div class="visual-card">
-              <img class="hero-image" src="./assets/hero-study-shot.png" alt="VibeStudying 이미지 가리기 카드 학습 화면" />
+              <img class="hero-image" src="./assets/hero-study-shot.png" alt="Camto 이미지 가리기 카드 학습 화면" />
             </div>
           </div>
 
@@ -730,7 +729,7 @@
                 <p>문의: <a href="mailto:donguk9805@gmail.com">donguk9805@gmail.com</a></p>
               </div>
               <div>
-                <p>Mac direct 배포본은 GitHub Releases를 통해 제공됩니다.</p>
+              <p>Camto direct 배포본은 GitHub Releases를 통해 제공됩니다.</p>
               </div>
             </div>
           </div>
@@ -754,7 +753,7 @@
       </section>
 
       <footer class="fineprint">
-        <span>VibeStudying</span>
+        <span>Camto</span>
         <span>Mac / Windows direct download · iPad / iPhone App Store</span>
       </footer>
     </div>
@@ -763,7 +762,7 @@
     <script>
       const tabs = Array.from(document.querySelectorAll(".tab"));
       const panels = Array.from(document.querySelectorAll(".tab-panel"));
-      const communityConfig = window.VIBESTUDYING_COMMUNITY_CONFIG || {};
+      const communityConfig = window.CAMTO_COMMUNITY_CONFIG || {};
       const communityStatus = document.getElementById("community-status");
       const communityList = document.getElementById("community-list");
       const communityForm = document.getElementById("community-form");
@@ -836,7 +835,7 @@
 
       function requestCommunityPostsJsonp() {
         return new Promise((resolve, reject) => {
-          const callbackName = `__vibestudyingFeedback${Date.now()}${communityRequestId++}`;
+          const callbackName = `__camtoFeedback${Date.now()}${communityRequestId++}`;
           const script = document.createElement("script");
           const cleanup = () => {
             delete window[callbackName];

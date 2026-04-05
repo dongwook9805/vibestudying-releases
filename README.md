@@ -1,6 +1,6 @@
-# VibeStudying Public Site & Releases
+# Camto Public Site & Releases
 
-이 저장소는 VibeStudying의 public 저장소입니다.
+이 저장소는 Camto의 public 저장소입니다.
 
 - GitHub Pages 홈페이지
 - Mac / Windows direct 배포 릴리즈 자산
@@ -62,7 +62,7 @@ GitHub Pages는 정적 사이트라서, 홈페이지 피드백 보드는 `Google
 `community-config.js`에 Apps Script URL을 넣습니다.
 
 ```js
-window.VIBESTUDYING_COMMUNITY_CONFIG = {
+window.CAMTO_COMMUNITY_CONFIG = {
   endpoint: "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec",
 };
 ```
