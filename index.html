@@ -616,6 +616,24 @@
         align-content: start;
       }
 
+      .demo-hint {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(40, 102, 255, 0.1);
+        color: var(--accent);
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .demo-hint::before {
+        content: "↳";
+        font-size: 14px;
+        line-height: 1;
+      }
+
       .demo-card {
         border-radius: 28px;
         border: 1px solid rgba(15, 23, 32, 0.06);
@@ -654,22 +672,52 @@
       .demo-step-button {
         width: 100%;
         text-align: left;
-        padding: 16px 18px;
+        padding: 18px;
         border-radius: 22px;
         border: 1px solid rgba(15, 23, 32, 0.08);
         background: rgba(255, 255, 255, 0.78);
         color: var(--text);
         transition: transform 0.18s ease, border-color 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease;
+        cursor: pointer;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 14px;
+        align-items: center;
       }
 
       .demo-step-button:hover {
         transform: translateY(-1px);
+        border-color: rgba(15, 23, 32, 0.16);
+        background: rgba(255, 255, 255, 0.92);
       }
 
       .demo-step-button.active {
         border-color: rgba(15, 23, 32, 0.18);
         background: rgba(255, 255, 255, 0.95);
         box-shadow: 0 14px 28px rgba(15, 23, 32, 0.08);
+      }
+
+      .demo-step-index {
+        width: 34px;
+        height: 34px;
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(15, 23, 32, 0.08);
+        color: var(--text);
+        font-size: 13px;
+        font-weight: 800;
+        flex-shrink: 0;
+      }
+
+      .demo-step-button.active .demo-step-index {
+        background: var(--accent);
+        color: #fff;
+      }
+
+      .demo-step-text {
+        min-width: 0;
       }
 
       .demo-step-button strong {
@@ -686,6 +734,32 @@
         line-height: 1.55;
         letter-spacing: normal;
         text-transform: none;
+      }
+
+      .demo-step-action {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 10px;
+        border-radius: 999px;
+        background: rgba(15, 23, 32, 0.05);
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      .demo-step-action::after {
+        content: "›";
+        font-size: 14px;
+        line-height: 1;
+      }
+
+      .demo-step-button.active .demo-step-action {
+        background: rgba(40, 102, 255, 0.1);
+        color: var(--accent);
       }
 
       .demo-scene-copy {
@@ -740,7 +814,7 @@
 
       .channel-grid {
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: 1fr;
         gap: 14px;
       }
 
@@ -1073,6 +1147,14 @@
           max-width: 220px;
         }
 
+        .demo-step-button {
+          grid-template-columns: auto 1fr;
+        }
+
+        .demo-step-action {
+          display: none;
+        }
+
         .channel-card {
           padding: 18px;
         }
@@ -1139,13 +1221,6 @@
               <a class="button primary" href="https://github.com/dongwook9805/vibestudying-releases/releases/download/v2.0.25/Camto-2.0.25-arm64.dmg">
                 Mac 다운로드
               </a>
-              <a class="button secondary" href="https://github.com/dongwook9805/vibestudying-releases/releases/download/v2.0.25/Camto.Setup.2.0.25.exe">
-                Windows 다운로드 (프리뷰)
-              </a>
-              <a class="button secondary" href="https://github.com/dongwook9805/vibestudying-releases/releases">
-                모든 릴리즈
-              </a>
-              <span class="button disabled">iPad / iPhone App Store 예정</span>
             </div>
           </div>
 
@@ -1196,7 +1271,7 @@
                     <strong>mandible.pdf 실제 사용 흐름</strong>
                     <span>카드 만들기 → 가리기 학습 → AI 팁</span>
                   </div>
-                  <div class="demo-pill">Interactive Demo</div>
+                  <div class="demo-pill">실제 앱 화면</div>
                 </div>
                 <div class="demo-viewport">
                   <img
@@ -1224,22 +1299,35 @@
             <aside class="demo-panel">
               <section class="demo-card">
                 <span>Workflow</span>
-                <h3>실제 쓰는 순서대로 눌러보세요.</h3>
+                <h3>1, 2, 3을 누르면 장면이 바뀝니다.</h3>
                 <p>설명보다 먼저 실제 앱 흐름이 보이게, mandible.pdf를 공부하는 장면 그대로 넣었습니다.</p>
+                <div class="demo-hint">아래 단계 카드를 클릭해 보세요</div>
               </section>
 
-              <section class="demo-steps" role="tablist" aria-label="Camto interactive demo steps">
+              <section class="demo-steps" role="tablist" aria-label="Camto workflow steps">
                 <button class="demo-step-button active" type="button" data-scene-trigger="build" role="tab" aria-selected="true">
-                  <strong>1. 이미지 가리기 카드 만들기</strong>
-                  <span>실제 자료 위에서 가릴 구조를 정하고 카드로 저장</span>
+                  <span class="demo-step-index">1</span>
+                  <span class="demo-step-text">
+                    <strong>이미지 가리기 카드 만들기</strong>
+                    <span>실제 자료 위에서 가릴 구조를 정하고 카드로 저장</span>
+                  </span>
+                  <span class="demo-step-action">click</span>
                 </button>
                 <button class="demo-step-button" type="button" data-scene-trigger="study" role="tab" aria-selected="false">
-                  <strong>2. 이미지 가리기 카드로 공부하기</strong>
-                  <span>가린 라벨을 하나씩 열며 구조명과 위치를 떠올리기</span>
+                  <span class="demo-step-index">2</span>
+                  <span class="demo-step-text">
+                    <strong>이미지 가리기 카드로 공부하기</strong>
+                    <span>가린 라벨을 하나씩 열며 구조명과 위치를 떠올리기</span>
+                  </span>
+                  <span class="demo-step-action">click</span>
                 </button>
                 <button class="demo-step-button" type="button" data-scene-trigger="ai" role="tab" aria-selected="false">
-                  <strong>3. 학습 중 AI에게 해부 팁 묻기</strong>
-                  <span>외우는 법, 헷갈리는 구조 차이, 시험 포인트 바로 질문</span>
+                  <span class="demo-step-index">3</span>
+                  <span class="demo-step-text">
+                    <strong>학습 중 AI에게 해부 팁 묻기</strong>
+                    <span>외우는 법, 헷갈리는 구조 차이, 시험 포인트 바로 질문</span>
+                  </span>
+                  <span class="demo-step-action">click</span>
                 </button>
               </section>
 
@@ -1264,16 +1352,6 @@
               <span>Mac</span>
               <strong>Direct Download</strong>
               <p>.dmg 설치 후 앱 안에서 자동 업데이트됩니다.</p>
-            </article>
-            <article class="channel">
-              <span>Windows</span>
-              <strong>Preview</strong>
-              <p>.exe direct 다운로드와 자동 업데이트는 지원하지만, 세부 UI와 일부 기능은 아직 계속 안정화 중입니다.</p>
-            </article>
-            <article class="channel">
-              <span>iPad / iPhone</span>
-              <strong>App Store</strong>
-              <p>모바일 버전은 App Store 채널로 별도 제공합니다.</p>
             </article>
           </div>
 
@@ -1357,7 +1435,7 @@
 
       <footer class="fineprint">
         <span>Camto</span>
-        <span>Mac / Windows direct download · iPad / iPhone App Store</span>
+        <span>Mac direct download</span>
       </footer>
     </div>
 
