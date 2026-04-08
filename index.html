@@ -259,7 +259,7 @@
 
       .footer-block {
         display: grid;
-        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+        grid-template-columns: 1fr;
         gap: 18px;
         padding: 0 0 28px;
       }
@@ -290,6 +290,7 @@
         font-size: clamp(28px, 4vw, 44px);
         line-height: 1.05;
         letter-spacing: -0.04em;
+        max-width: 940px;
       }
 
       .workflow-header p {
@@ -427,15 +428,16 @@
 
       .demo-shell {
         display: grid;
-        grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.8fr);
+        grid-template-columns: minmax(360px, 0.96fr) minmax(0, 1.24fr);
         gap: 18px;
-        align-items: stretch;
+        align-items: start;
       }
 
       .demo-stage {
+        order: 2;
         position: relative;
         overflow: hidden;
-        min-height: 680px;
+        min-height: 620px;
         border-radius: 34px;
         padding: 18px;
         background: rgba(255, 255, 255, 0.62);
@@ -458,7 +460,7 @@
         z-index: 1;
         overflow: hidden;
         height: 100%;
-        min-height: 640px;
+        min-height: 580px;
         border-radius: 28px;
         border: 1px solid rgba(15, 23, 32, 0.08);
         background: rgba(250, 248, 244, 0.95);
@@ -611,9 +613,12 @@
       }
 
       .demo-panel {
+        order: 1;
         display: grid;
         gap: 14px;
         align-content: start;
+        position: sticky;
+        top: 20px;
       }
 
       .demo-hint {
@@ -666,7 +671,7 @@
 
       .demo-steps {
         display: grid;
-        gap: 10px;
+        gap: 12px;
       }
 
       .demo-step-button {
@@ -683,6 +688,7 @@
         grid-template-columns: auto 1fr auto;
         gap: 14px;
         align-items: center;
+        min-height: 104px;
       }
 
       .demo-step-button:hover {
@@ -695,6 +701,7 @@
         border-color: rgba(15, 23, 32, 0.18);
         background: rgba(255, 255, 255, 0.95);
         box-shadow: 0 14px 28px rgba(15, 23, 32, 0.08);
+        transform: translateY(-1px);
       }
 
       .demo-step-index {
@@ -763,12 +770,12 @@
       }
 
       .demo-scene-copy {
-        min-height: 128px;
+        min-height: 144px;
       }
 
       .demo-scene-copy strong {
         display: block;
-        font-size: 16px;
+        font-size: 18px;
         line-height: 1.4;
       }
 
@@ -1132,6 +1139,7 @@
         }
 
         .demo-stage {
+          order: 1;
           min-height: 540px;
         }
 
@@ -1145,6 +1153,11 @@
 
         .demo-hotspot {
           max-width: 220px;
+        }
+
+        .demo-panel {
+          order: 2;
+          position: static;
         }
 
         .demo-step-button {
@@ -1299,7 +1312,7 @@
             <aside class="demo-panel">
               <section class="demo-card">
                 <span>Workflow</span>
-                <h3>1, 2, 3을 누르면 장면이 바뀝니다.</h3>
+                <h3>아래 단계 카드를 누르면 장면이 바뀝니다.</h3>
                 <p>설명보다 먼저 실제 앱 흐름이 보이게, mandible.pdf를 공부하는 장면 그대로 넣었습니다.</p>
                 <div class="demo-hint">아래 단계 카드를 클릭해 보세요</div>
               </section>
@@ -1311,7 +1324,7 @@
                     <strong>이미지 가리기 카드 만들기</strong>
                     <span>실제 자료 위에서 가릴 구조를 정하고 카드로 저장</span>
                   </span>
-                  <span class="demo-step-action">click</span>
+                  <span class="demo-step-action">눌러보기</span>
                 </button>
                 <button class="demo-step-button" type="button" data-scene-trigger="study" role="tab" aria-selected="false">
                   <span class="demo-step-index">2</span>
@@ -1319,7 +1332,7 @@
                     <strong>이미지 가리기 카드로 공부하기</strong>
                     <span>가린 라벨을 하나씩 열며 구조명과 위치를 떠올리기</span>
                   </span>
-                  <span class="demo-step-action">click</span>
+                  <span class="demo-step-action">눌러보기</span>
                 </button>
                 <button class="demo-step-button" type="button" data-scene-trigger="ai" role="tab" aria-selected="false">
                   <span class="demo-step-index">3</span>
@@ -1327,7 +1340,7 @@
                     <strong>학습 중 AI에게 해부 팁 묻기</strong>
                     <span>외우는 법, 헷갈리는 구조 차이, 시험 포인트 바로 질문</span>
                   </span>
-                  <span class="demo-step-action">click</span>
+                  <span class="demo-step-action">눌러보기</span>
                 </button>
               </section>
 
