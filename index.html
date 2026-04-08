@@ -203,6 +203,7 @@
         border: 1px solid rgba(255, 255, 255, 0.52);
         box-shadow: var(--shadow-soft);
         min-height: 240px;
+        padding: 12px;
       }
 
       .hero-gallery-card::before {
@@ -219,24 +220,15 @@
         display: block;
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        object-fit: contain;
+        object-position: center;
+        border-radius: 20px;
+        background: rgba(250, 248, 244, 0.9);
       }
 
       .hero-gallery-card.build {
         grid-row: 1 / span 2;
         min-height: 560px;
-      }
-
-      .hero-gallery-card.build img {
-        object-position: 24% 18%;
-      }
-
-      .hero-gallery-card.study img {
-        object-position: 48% 34%;
-      }
-
-      .hero-gallery-card.ai img {
-        object-position: 60% 42%;
       }
 
       .caption-row {
@@ -522,6 +514,7 @@
         height: calc(100% - 65px);
         min-height: 560px;
         overflow: hidden;
+        padding: 18px;
         background:
           radial-gradient(circle at top left, rgba(255, 255, 255, 0.4), transparent 18%),
           linear-gradient(180deg, rgba(244, 241, 235, 0.6), rgba(236, 231, 223, 0.2));
@@ -529,10 +522,11 @@
 
       .demo-shot {
         position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+        inset: 18px;
+        width: calc(100% - 36px);
+        height: calc(100% - 36px);
+        object-fit: contain;
+        object-position: center;
         transition: opacity 220ms ease, transform 420ms ease, filter 420ms ease;
         filter: saturate(1.03) contrast(1.03);
         opacity: 1;
