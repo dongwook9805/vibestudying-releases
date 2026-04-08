@@ -188,16 +188,24 @@
         padding: 18px 22px 22px;
       }
 
-      .visual-card {
+      .hero-gallery {
+        display: grid;
+        grid-template-columns: minmax(0, 1.18fr) minmax(0, 0.82fr);
+        grid-template-rows: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .hero-gallery-card {
         position: relative;
         overflow: hidden;
         border-radius: 28px;
         background: rgba(255, 255, 255, 0.64);
         border: 1px solid rgba(255, 255, 255, 0.52);
         box-shadow: var(--shadow-soft);
+        min-height: 240px;
       }
 
-      .visual-card::before {
+      .hero-gallery-card::before {
         content: "";
         position: absolute;
         inset: 0;
@@ -207,10 +215,28 @@
         pointer-events: none;
       }
 
-      .hero-image {
+      .hero-gallery-card img {
         display: block;
         width: 100%;
-        height: auto;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .hero-gallery-card.build {
+        grid-row: 1 / span 2;
+        min-height: 560px;
+      }
+
+      .hero-gallery-card.build img {
+        object-position: 24% 18%;
+      }
+
+      .hero-gallery-card.study img {
+        object-position: 48% 34%;
+      }
+
+      .hero-gallery-card.ai img {
+        object-position: 60% 42%;
       }
 
       .caption-row {
@@ -554,18 +580,18 @@
         box-shadow: 0 0 0 8px rgba(17, 24, 39, 0.12);
       }
 
-      .demo-stage[data-scene="capture"] .demo-hotspot[data-scene="capture"],
+      .demo-stage[data-scene="build"] .demo-hotspot[data-scene="build"],
       .demo-stage[data-scene="study"] .demo-hotspot[data-scene="study"],
       .demo-stage[data-scene="ai"] .demo-hotspot[data-scene="ai"] {
         display: block;
       }
 
-      .demo-hotspot[data-scene="capture"] {
+      .demo-hotspot[data-scene="build"] {
         right: 24px;
         top: 24px;
       }
 
-      .demo-hotspot[data-scene="capture"]::after {
+      .demo-hotspot[data-scene="build"]::after {
         left: -18px;
         bottom: 22px;
       }
@@ -588,62 +614,6 @@
       .demo-hotspot[data-scene="ai"]::after {
         right: -20px;
         top: -10px;
-      }
-
-      .demo-ai-panel {
-        position: absolute;
-        top: 22px;
-        right: 22px;
-        z-index: 3;
-        width: 280px;
-        display: grid;
-        gap: 10px;
-        padding: 14px;
-        border-radius: 22px;
-        background: rgba(255, 255, 255, 0.94);
-        border: 1px solid rgba(15, 23, 32, 0.08);
-        box-shadow: 0 18px 32px rgba(17, 24, 31, 0.14);
-        backdrop-filter: blur(14px);
-        opacity: 0;
-        transform: translateY(18px);
-        pointer-events: none;
-        transition: opacity 240ms ease, transform 240ms ease;
-      }
-
-      .demo-stage[data-scene="ai"] .demo-ai-panel {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      .demo-ai-panel strong {
-        display: block;
-        font-size: 13px;
-        line-height: 1.35;
-      }
-
-      .demo-ai-panel p {
-        margin: 0;
-        color: var(--muted);
-        font-size: 12px;
-        line-height: 1.65;
-      }
-
-      .demo-ai-prompt,
-      .demo-ai-answer {
-        border-radius: 16px;
-        padding: 10px 12px;
-        font-size: 12px;
-        line-height: 1.6;
-      }
-
-      .demo-ai-prompt {
-        background: rgba(15, 23, 32, 0.06);
-        color: var(--text);
-      }
-
-      .demo-ai-answer {
-        background: rgba(255, 255, 255, 0.84);
-        border: 1px solid rgba(15, 23, 32, 0.08);
       }
 
       .demo-panel {
@@ -1064,6 +1034,16 @@
           padding: 12px 14px 14px;
         }
 
+        .hero-gallery {
+          grid-template-columns: 1fr;
+          grid-template-rows: none;
+        }
+
+        .hero-gallery-card.build {
+          grid-row: auto;
+          min-height: 320px;
+        }
+
         .caption-row,
         .footer-block,
         .channel-grid,
@@ -1160,7 +1140,7 @@
           <div class="hero-copy">
             <p class="eyebrow">Desktop Study App</p>
             <h1>Read. Mark. Recall.</h1>
-            <p class="subline">PDF를 읽고, 바로 복습으로 이어집니다.</p>
+            <p class="subline">mandible.pdf에서 카드 만들기, 가리기 학습, AI 팁까지 한 흐름으로 이어집니다.</p>
             <div id="download" class="hero-actions">
               <a class="button primary" href="https://github.com/dongwook9805/vibestudying-releases/releases/download/v2.0.25/Camto-2.0.25-arm64.dmg">
                 Mac 다운로드
@@ -1176,23 +1156,31 @@
           </div>
 
           <div class="visual-wrap">
-            <div class="visual-card">
-              <img class="hero-image" src="./assets/hero-study-shot.png" alt="Camto 이미지 가리기 카드 학습 화면" />
+            <div class="hero-gallery" aria-label="Camto 실제 사용 흐름">
+              <div class="hero-gallery-card build">
+                <img src="./assets/demo-mandible-build.png" alt="Camto에서 mandible.pdf로 이미지 가리기 카드를 만드는 화면" />
+              </div>
+              <div class="hero-gallery-card study">
+                <img src="./assets/demo-mandible-study.png" alt="Camto에서 mandible 이미지 가리기 카드를 학습하는 화면" />
+              </div>
+              <div class="hero-gallery-card ai">
+                <img src="./assets/demo-mandible-ai.png" alt="Camto에서 mandible 카드 학습 중 AI 팁을 받는 화면" />
+              </div>
             </div>
           </div>
 
           <div class="caption-row">
             <div class="caption-pill">
-              <strong>PDF</strong>
-              읽고 바로 표시
+              <strong>Build</strong>
+              mandible.pdf에서 바로 카드 만들기
             </div>
             <div class="caption-pill">
-              <strong>Occlusion</strong>
-              그림 위에서 바로 복습
+              <strong>Study</strong>
+              가리기 영역으로 구조를 열며 복습
             </div>
             <div class="caption-pill">
-              <strong>Recall</strong>
-              Mac에서 계속 이어서 학습
+              <strong>AI Tips</strong>
+              학습 중 바로 질문하고 암기 팁 받기
             </div>
           </div>
         </section>
@@ -1202,17 +1190,17 @@
         <div class="workflow-shell">
           <header class="workflow-header">
             <span>How It Works</span>
-            <h2>mandible.pdf를 실제로 여는 순간부터, 가리기 학습과 AI 팁까지.</h2>
-            <p>실제 Camto dev 화면에서 `mandible.pdf`를 열고, 카드 만드는 흐름과 학습 화면을 그대로 캡처했습니다. 버튼을 누르면 실제 컷이 전환됩니다.</p>
+            <h2>mandible.pdf로 카드 만들기, 가리기 학습, AI 팁까지 실제 흐름 그대로.</h2>
+            <p>아래 세 장은 모두 실제 Camto 화면입니다. 버튼을 누르면 카드 생성, 학습, AI 질문 컷이 전환됩니다.</p>
           </header>
 
           <div class="demo-shell">
-            <section class="demo-stage" id="interactive-demo" data-scene="capture" aria-live="polite">
+            <section class="demo-stage" id="interactive-demo" data-scene="build" aria-live="polite">
               <div class="demo-window">
                 <div class="demo-topbar">
                   <div>
                     <strong>mandible.pdf 실제 사용 흐름</strong>
-                    <span>PDF 열기 → 가리기 카드 만들기 → 학습하기 → AI 팁</span>
+                    <span>카드 만들기 → 가리기 학습 → AI 팁</span>
                   </div>
                   <div class="demo-pill">Interactive Demo</div>
                 </div>
@@ -1220,12 +1208,12 @@
                   <img
                     class="demo-shot"
                     id="demo-shot"
-                    src="./assets/demo-mandible-document.png"
-                    alt="Camto에서 mandible.pdf를 열어 실제로 학습하는 화면"
+                    src="./assets/demo-mandible-build.png"
+                    alt="Camto에서 mandible.pdf로 이미지 가리기 카드를 만드는 화면"
                   />
-                  <div class="demo-hotspot" data-scene="capture">
+                  <div class="demo-hotspot" data-scene="build">
                     <strong>mandible.pdf에서 바로 카드 만들기</strong>
-                    <span>문서를 열자마자 `이미지`나 `캡처`로 들어가 가리기 카드 흐름을 시작합니다.</span>
+                    <span>이미지 가리기 카드 모달에서 라벨 영역을 조정하고 그대로 저장합니다.</span>
                   </div>
                   <div class="demo-hotspot" data-scene="study">
                     <strong>학습하기에서 바로 복습</strong>
@@ -1234,14 +1222,6 @@
                   <div class="demo-hotspot" data-scene="ai">
                     <strong>같은 카드 맥락에서 바로 질문</strong>
                     <span>학습 중 헷갈리는 구조를 AI에게 바로 물어보고 암기 팁을 받습니다.</span>
-                  </div>
-                  <div class="demo-ai-panel" aria-hidden="true">
-                    <strong>AI anatomy tip</strong>
-                    <div class="demo-ai-prompt">mental foramen이랑 angle of mandible을 헷갈리지 않게 외우는 팁 알려줘</div>
-                    <div class="demo-ai-answer">
-                      body 앞쪽의 구멍은 <b>mental foramen</b>, 뒤아래 꺾이는 모서리는 <b>angle of mandible</b>로 묶어서 위치 기억을 잡습니다.
-                    </div>
-                    <p>카드 공부를 멈추지 않고 바로 질문하고, 답을 다음 복습에도 다시 참고할 수 있습니다.</p>
                   </div>
                 </div>
               </div>
@@ -1255,9 +1235,9 @@
               </section>
 
               <section class="demo-steps" role="tablist" aria-label="Camto interactive demo steps">
-                <button class="demo-step-button active" type="button" data-scene-trigger="capture" role="tab" aria-selected="true">
-                  <strong>1. mandible.pdf 열기</strong>
-                  <span>실제 자료를 열고 필요한 그림에서 카드 흐름 시작</span>
+                <button class="demo-step-button active" type="button" data-scene-trigger="build" role="tab" aria-selected="true">
+                  <strong>1. 이미지 가리기 카드 만들기</strong>
+                  <span>mandible.pdf에서 라벨 영역을 잡고 바로 카드 저장</span>
                 </button>
                 <button class="demo-step-button" type="button" data-scene-trigger="study" role="tab" aria-selected="false">
                   <strong>2. 이미지 가리기 카드로 공부하기</strong>
@@ -1270,12 +1250,12 @@
               </section>
 
               <section class="demo-card demo-scene-copy" id="demo-scene-copy">
-                <strong>mandible.pdf를 열고 바로 카드 흐름으로 들어갑니다.</strong>
-                <p>실제 PDF 문서 위에서 필요한 그림을 보고, 이미지 카드로 이어지는 흐름을 바로 시작합니다.</p>
+                <strong>mandible.pdf에서 바로 카드 생성으로 들어갑니다.</strong>
+                <p>실제 이미지 가리기 카드 모달에서 필요한 라벨만 잡고, 텍스트 스냅과 미세조정을 거쳐 저장합니다.</p>
                 <ul class="demo-scene-list">
-                  <li>자료를 따로 옮기지 않고 PDF 안에서 바로 시작</li>
-                  <li>`이미지`와 `캡처` 버튼으로 카드 생성 흐름 진입</li>
-                  <li>학습 자료와 단어장을 같은 창에서 연결</li>
+                  <li>mandible.pdf를 보던 흐름 안에서 바로 카드 생성</li>
+                  <li>라벨 박스를 조정하고 답 이름만 정리해 저장</li>
+                  <li>저장한 카드는 곧바로 학습하기로 이어짐</li>
                 </ul>
               </section>
             </aside>
@@ -1404,15 +1384,15 @@
       const demoShot = document.getElementById("demo-shot");
       const demoTriggers = Array.from(document.querySelectorAll("[data-scene-trigger]"));
       const demoScenes = {
-        capture: {
-          title: "mandible.pdf를 열고 바로 카드 흐름으로 들어갑니다.",
-          body: "실제 학습 자료를 보면서 필요한 그림을 확인하고, 같은 창 안에서 이미지 카드와 가리기 카드 생성으로 이어집니다.",
-          image: "./assets/demo-mandible-document.png",
-          alt: "Camto에서 mandible.pdf를 연 실제 문서 화면",
+        build: {
+          title: "mandible.pdf에서 바로 카드 생성으로 들어갑니다.",
+          body: "실제 이미지 가리기 카드 모달에서 필요한 라벨만 잡고, 텍스트 스냅과 미세조정을 거쳐 저장합니다.",
+          image: "./assets/demo-mandible-build.png",
+          alt: "Camto에서 mandible.pdf로 이미지 가리기 카드를 만드는 화면",
           bullets: [
-            "PDF를 여는 순간부터 바로 학습 흐름이 시작됩니다.",
-            "이미지/캡처 버튼으로 그림 기반 카드 생성 단계로 진입합니다.",
-            "문서, 채팅, 노트, 페이지 노트를 한 화면에서 같이 봅니다.",
+            "mandible.pdf를 보던 흐름 안에서 바로 카드 생성",
+            "라벨 박스를 조정하고 답 이름만 정리해 저장",
+            "저장한 카드는 곧바로 학습하기로 이어짐",
           ],
         },
         study: {
@@ -1429,7 +1409,7 @@
         ai: {
           title: "옆 AI에서 암기 팁과 구분 포인트를 바로 받습니다.",
           body: "카드 공부 중 막히면 같은 카드 맥락에서 바로 질문하고, 외우는 법이나 차이점을 이어서 정리할 수 있습니다.",
-          image: "./assets/demo-mandible-study.png",
+          image: "./assets/demo-mandible-ai.png",
           alt: "Camto에서 이미지 가리기 카드 학습 중 AI 팁을 받는 화면",
           bullets: [
             "학습 중 카드 맥락을 유지한 채 바로 질문",
@@ -1487,7 +1467,7 @@
         });
       });
 
-      renderDemoScene("capture");
+      renderDemoScene("build");
 
       function escapeHtml(value) {
         return String(value)
