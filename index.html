@@ -407,6 +407,313 @@
         line-height: 1.55;
       }
 
+      .demo-shell {
+        display: grid;
+        grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.8fr);
+        gap: 18px;
+        align-items: stretch;
+      }
+
+      .demo-stage {
+        position: relative;
+        overflow: hidden;
+        min-height: 680px;
+        border-radius: 34px;
+        padding: 18px;
+        background: rgba(255, 255, 255, 0.62);
+        border: 1px solid rgba(15, 23, 32, 0.07);
+        box-shadow: var(--shadow-soft);
+      }
+
+      .demo-stage::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(circle at top left, rgba(255, 255, 255, 0.42), transparent 26%),
+          linear-gradient(180deg, rgba(255, 255, 255, 0.22), transparent 28%);
+        pointer-events: none;
+      }
+
+      .demo-window {
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        height: 100%;
+        min-height: 640px;
+        border-radius: 28px;
+        border: 1px solid rgba(15, 23, 32, 0.08);
+        background: rgba(250, 248, 244, 0.95);
+        box-shadow: 0 18px 40px rgba(17, 24, 31, 0.08);
+      }
+
+      .demo-topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 16px 18px 12px;
+        border-bottom: 1px solid rgba(15, 23, 32, 0.06);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(247, 244, 239, 0.84));
+      }
+
+      .demo-topbar strong {
+        display: block;
+        font-size: 13px;
+        line-height: 1.35;
+      }
+
+      .demo-topbar span {
+        display: block;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.45;
+      }
+
+      .demo-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 12px;
+        border-radius: 999px;
+        background: rgba(15, 23, 32, 0.06);
+        color: var(--text);
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .demo-pill::before {
+        content: "";
+        width: 9px;
+        height: 9px;
+        border-radius: 999px;
+        background: #ff7d50;
+        box-shadow: 0 0 0 4px rgba(255, 125, 80, 0.16);
+      }
+
+      .demo-viewport {
+        position: relative;
+        height: calc(100% - 65px);
+        min-height: 560px;
+        overflow: hidden;
+        background:
+          radial-gradient(circle at top left, rgba(255, 255, 255, 0.4), transparent 18%),
+          linear-gradient(180deg, rgba(244, 241, 235, 0.6), rgba(236, 231, 223, 0.2));
+      }
+
+      .demo-shot {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 420ms ease, object-position 420ms ease, filter 420ms ease;
+        filter: saturate(1.03) contrast(1.03);
+      }
+
+      .demo-stage[data-scene="capture"] .demo-shot {
+        object-position: 14% 34%;
+        transform: scale(1.56);
+      }
+
+      .demo-stage[data-scene="study"] .demo-shot {
+        object-position: 52% 48%;
+        transform: scale(1.38);
+      }
+
+      .demo-stage[data-scene="ai"] .demo-shot {
+        object-position: 88% 46%;
+        transform: scale(1.46);
+      }
+
+      .demo-hotspot {
+        position: absolute;
+        z-index: 2;
+        display: none;
+        padding: 12px 14px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.93);
+        border: 1px solid rgba(15, 23, 32, 0.08);
+        box-shadow: 0 18px 32px rgba(17, 24, 31, 0.12);
+        backdrop-filter: blur(14px);
+        max-width: 280px;
+      }
+
+      .demo-hotspot strong {
+        display: block;
+        font-size: 13px;
+        line-height: 1.35;
+      }
+
+      .demo-hotspot span {
+        display: block;
+        margin-top: 4px;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.55;
+      }
+
+      .demo-hotspot::after {
+        content: "";
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        border-radius: 999px;
+        background: #111827;
+        box-shadow: 0 0 0 8px rgba(17, 24, 39, 0.12);
+      }
+
+      .demo-stage[data-scene="capture"] .demo-hotspot[data-scene="capture"],
+      .demo-stage[data-scene="study"] .demo-hotspot[data-scene="study"],
+      .demo-stage[data-scene="ai"] .demo-hotspot[data-scene="ai"] {
+        display: block;
+      }
+
+      .demo-hotspot[data-scene="capture"] {
+        left: 24px;
+        bottom: 28px;
+      }
+
+      .demo-hotspot[data-scene="capture"]::after {
+        right: -20px;
+        top: -12px;
+      }
+
+      .demo-hotspot[data-scene="study"] {
+        right: 26px;
+        top: 28px;
+      }
+
+      .demo-hotspot[data-scene="study"]::after {
+        left: -18px;
+        bottom: 22px;
+      }
+
+      .demo-hotspot[data-scene="ai"] {
+        right: 26px;
+        bottom: 28px;
+      }
+
+      .demo-hotspot[data-scene="ai"]::after {
+        left: -18px;
+        top: 18px;
+      }
+
+      .demo-panel {
+        display: grid;
+        gap: 14px;
+        align-content: start;
+      }
+
+      .demo-card {
+        border-radius: 28px;
+        border: 1px solid rgba(15, 23, 32, 0.06);
+        background: rgba(255, 255, 255, 0.62);
+        box-shadow: var(--shadow-soft);
+        padding: 22px;
+      }
+
+      .demo-card span {
+        display: block;
+        color: var(--muted);
+        font-size: 12px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .demo-card h3 {
+        margin: 10px 0 0;
+        font-size: 26px;
+        line-height: 1.1;
+        letter-spacing: -0.04em;
+      }
+
+      .demo-card p {
+        margin: 12px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.8;
+      }
+
+      .demo-steps {
+        display: grid;
+        gap: 10px;
+      }
+
+      .demo-step-button {
+        width: 100%;
+        text-align: left;
+        padding: 16px 18px;
+        border-radius: 22px;
+        border: 1px solid rgba(15, 23, 32, 0.08);
+        background: rgba(255, 255, 255, 0.78);
+        color: var(--text);
+        transition: transform 0.18s ease, border-color 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease;
+      }
+
+      .demo-step-button:hover {
+        transform: translateY(-1px);
+      }
+
+      .demo-step-button.active {
+        border-color: rgba(15, 23, 32, 0.18);
+        background: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 14px 28px rgba(15, 23, 32, 0.08);
+      }
+
+      .demo-step-button strong {
+        display: block;
+        font-size: 15px;
+        line-height: 1.35;
+      }
+
+      .demo-step-button span {
+        display: block;
+        margin-top: 4px;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.55;
+        letter-spacing: normal;
+        text-transform: none;
+      }
+
+      .demo-scene-copy {
+        min-height: 128px;
+      }
+
+      .demo-scene-copy strong {
+        display: block;
+        font-size: 16px;
+        line-height: 1.4;
+      }
+
+      .demo-scene-copy p {
+        margin: 8px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.75;
+      }
+
+      .demo-scene-list {
+        margin: 12px 0 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 8px;
+      }
+
+      .demo-scene-list li {
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      .demo-scene-list li::before {
+        content: "•";
+        margin-right: 8px;
+        color: var(--text);
+      }
+
       .channel-card,
       .info-card {
         border-radius: 28px;
@@ -711,7 +1018,6 @@
         }
 
         .caption-row,
-        .workflow-grid,
         .footer-block,
         .channel-grid,
         .community-board {
@@ -724,6 +1030,26 @@
 
         .workflow-frame {
           min-height: 280px;
+        }
+
+        .demo-shell {
+          grid-template-columns: 1fr;
+        }
+
+        .demo-stage {
+          min-height: 540px;
+        }
+
+        .demo-window {
+          min-height: 520px;
+        }
+
+        .demo-viewport {
+          min-height: 440px;
+        }
+
+        .demo-hotspot {
+          max-width: 220px;
         }
 
         .channel-card {
@@ -829,55 +1155,70 @@
         <div class="workflow-shell">
           <header class="workflow-header">
             <span>How It Works</span>
-            <h2>해부 그림 자료 한 장으로, 만드는 것부터 복습까지.</h2>
-            <p>Camto에서는 PDF에서 바로 카드 초안을 만들고, 이미지 가리기로 외우고, 학습 중 AI에게 암기 팁과 구분 포인트를 바로 물어볼 수 있습니다.</p>
+            <h2>mandible.pdf 한 장으로, 만드는 것부터 외우는 순간까지.</h2>
+            <p>실제 Camto 사용 흐름을 그대로 압축했습니다. 카드 초안 만들기, 이미지 가리기 복습, 학습 중 AI 팁까지 직접 눌러보면서 흐름을 확인할 수 있습니다.</p>
           </header>
 
-          <div class="workflow-grid">
-            <article class="workflow-step">
-              <div class="workflow-meta">
-                <div class="workflow-number">1</div>
-                <h3>그림에서 바로 카드 만들기</h3>
-                <p>해부 그림 자료를 캡처하고, 라벨이 있는 영역을 바로 가리기 카드로 만듭니다. 수동 조정과 텍스트 스냅으로 빠르게 초안을 잡습니다.</p>
-              </div>
-              <div class="workflow-frame step-capture">
-                <img src="./assets/hero-study-shot.png" alt="Camto에서 해부 그림 자료를 캡처해 가리기 카드를 만드는 화면" />
-                <div class="workflow-callout">
-                  <strong>Capture → Card Draft</strong>
-                  <span>자료 위에서 바로 가리기 영역을 잡고 저장합니다.</span>
+          <div class="demo-shell">
+            <section class="demo-stage" id="interactive-demo" data-scene="capture" aria-live="polite">
+              <div class="demo-window">
+                <div class="demo-topbar">
+                  <div>
+                    <strong>mandible.pdf</strong>
+                    <span>카드 만들기 → 학습하기 → AI 팁</span>
+                  </div>
+                  <div class="demo-pill">Interactive Demo</div>
+                </div>
+                <div class="demo-viewport">
+                  <img class="demo-shot" src="./assets/hero-study-shot.png" alt="Camto 실제 학습 화면 데모" />
+                  <div class="demo-hotspot" data-scene="capture">
+                    <strong>가리기 카드 초안 만들기</strong>
+                    <span>캡처한 그림 위에서 텍스트 박스와 가리기 영역을 바로 잡습니다.</span>
+                  </div>
+                  <div class="demo-hotspot" data-scene="study">
+                    <strong>학습하기에서 바로 복습</strong>
+                    <span>Space로 가려진 라벨을 열고, 구조를 떠올리며 반복 복습합니다.</span>
+                  </div>
+                  <div class="demo-hotspot" data-scene="ai">
+                    <strong>옆 AI로 암기 팁 받기</strong>
+                    <span>카드 맥락 그대로 외우는 법, 차이점, 시험 포인트를 바로 묻습니다.</span>
+                  </div>
                 </div>
               </div>
-            </article>
+            </section>
 
-            <article class="workflow-step">
-              <div class="workflow-meta">
-                <div class="workflow-number">2</div>
-                <h3>가리기 영역으로 복습</h3>
-                <p>만든 카드로 바로 학습을 시작합니다. 구조명, 위치, 연결 관계를 가리기 영역 중심으로 반복해서 외울 수 있습니다.</p>
-              </div>
-              <div class="workflow-frame step-occlusion">
-                <img src="./assets/hero-study-shot.png" alt="Camto 이미지 가리기 카드 학습 화면" />
-                <div class="workflow-callout">
-                  <strong>Image Occlusion Study</strong>
-                  <span>라벨을 가리고 구조를 떠올리며 시험형으로 복습합니다.</span>
-                </div>
-              </div>
-            </article>
+            <aside class="demo-panel">
+              <section class="demo-card">
+                <span>Workflow</span>
+                <h3>실제 쓰는 순서대로 눌러보세요.</h3>
+                <p>정적 설명이 아니라, Camto를 쓰는 핵심 흐름만 빠르게 체험할 수 있게 만들었습니다.</p>
+              </section>
 
-            <article class="workflow-step">
-              <div class="workflow-meta">
-                <div class="workflow-number">3</div>
-                <h3>학습 중 AI에게 바로 질문</h3>
-                <p>카드 학습 중 모르는 부분은 AI에게 바로 묻고, 암기 팁이나 헷갈리는 구조의 차이점을 이어서 정리할 수 있습니다.</p>
-              </div>
-              <div class="workflow-frame step-ai">
-                <img src="./assets/hero-study-shot.png" alt="Camto 학습 화면에서 AI에게 암기 팁을 묻는 장면" />
-                <div class="workflow-callout">
-                  <strong>Ask AI While Studying</strong>
-                  <span>외우는 법, 차이점, 시험 포인트를 카드 맥락 그대로 물어봅니다.</span>
-                </div>
-              </div>
-            </article>
+              <section class="demo-steps" role="tablist" aria-label="Camto interactive demo steps">
+                <button class="demo-step-button active" type="button" data-scene-trigger="capture" role="tab" aria-selected="true">
+                  <strong>1. mandible.pdf에서 카드 만들기</strong>
+                  <span>캡처 → 텍스트 스냅 → 가리기 카드 저장</span>
+                </button>
+                <button class="demo-step-button" type="button" data-scene-trigger="study" role="tab" aria-selected="false">
+                  <strong>2. 이미지 가리기 카드로 공부하기</strong>
+                  <span>가린 라벨을 보며 구조명과 위치를 떠올리기</span>
+                </button>
+                <button class="demo-step-button" type="button" data-scene-trigger="ai" role="tab" aria-selected="false">
+                  <strong>3. 학습 중 AI에게 해부 팁 묻기</strong>
+                  <span>외우는 법, 헷갈리는 구조 차이, 시험 포인트</span>
+                </button>
+              </section>
+
+              <section class="demo-card demo-scene-copy" id="demo-scene-copy">
+                <strong>PDF에서 바로 카드 초안을 만듭니다.</strong>
+                <p>mandible 자료를 보면서 필요한 부분만 바로 캡처하고, 라벨이 있는 자리만 가려서 카드로 저장합니다.</p>
+                <ul class="demo-scene-list">
+                  <li>박스를 대충 그리면 텍스트 스냅으로 조정</li>
+                  <li>숫자 위치와 가리기 영역을 수동 보정 가능</li>
+                  <li>자료 흐름을 끊지 않고 바로 단어장으로 저장</li>
+                </ul>
+              </section>
+            </aside>
           </div>
         </div>
       </section>
@@ -998,6 +1339,38 @@
       const communityEndpoint = String(communityConfig.endpoint || "").trim();
       const isCommunityConfigured = Boolean(communityEndpoint);
       let communityRequestId = 0;
+      const demoRoot = document.getElementById("interactive-demo");
+      const demoCopy = document.getElementById("demo-scene-copy");
+      const demoTriggers = Array.from(document.querySelectorAll("[data-scene-trigger]"));
+      const demoScenes = {
+        capture: {
+          title: "PDF에서 바로 카드 초안을 만듭니다.",
+          body: "mandible 자료를 보면서 필요한 부분만 바로 캡처하고, 라벨이 있는 자리만 가려서 카드로 저장합니다.",
+          bullets: [
+            "박스를 대충 그리면 텍스트 스냅으로 조정",
+            "숫자 위치와 가리기 영역을 수동 보정 가능",
+            "자료 흐름을 끊지 않고 바로 단어장으로 저장",
+          ],
+        },
+        study: {
+          title: "이미지 가리기 카드로 바로 복습합니다.",
+          body: "학습하기로 넘어가면 구조를 떠올린 뒤 가리기 영역을 열며 반복 복습할 수 있습니다.",
+          bullets: [
+            "라벨을 가린 상태로 구조명과 위치를 먼저 떠올리기",
+            "Space 중심으로 빠르게 열고 확인하는 흐름",
+            "해부 그림처럼 시각 기억이 중요한 과목에 맞춘 복습 방식",
+          ],
+        },
+        ai: {
+          title: "옆 AI에서 암기 팁과 구분 포인트를 바로 받습니다.",
+          body: "카드 공부 중 막히면 같은 카드 맥락에서 바로 질문하고, 외우는 법이나 차이점을 이어서 정리할 수 있습니다.",
+          bullets: [
+            "학습 중 카드 맥락을 유지한 채 바로 질문",
+            "헷갈리는 구조 차이와 시험 포인트 정리",
+            "암기 팁을 채팅 기록으로 남겨 다음 복습에도 재사용",
+          ],
+        },
+      };
 
       tabs.forEach((tab) => {
         tab.addEventListener("click", () => {
@@ -1014,6 +1387,34 @@
           });
         });
       });
+
+      function renderDemoScene(scene) {
+        if (!demoRoot || !demoCopy || !demoScenes[scene]) return;
+        const payload = demoScenes[scene];
+        demoRoot.dataset.scene = scene;
+        demoCopy.innerHTML = `
+          <strong>${payload.title}</strong>
+          <p>${payload.body}</p>
+          <ul class="demo-scene-list">
+            ${payload.bullets.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}
+          </ul>
+        `;
+
+        demoTriggers.forEach((button) => {
+          const isActive = button.dataset.sceneTrigger === scene;
+          button.classList.toggle("active", isActive);
+          button.setAttribute("aria-selected", String(isActive));
+        });
+      }
+
+      demoTriggers.forEach((button) => {
+        button.addEventListener("click", () => {
+          const scene = button.dataset.sceneTrigger;
+          if (scene) renderDemoScene(scene);
+        });
+      });
+
+      renderDemoScene("capture");
 
       function escapeHtml(value) {
         return String(value)
