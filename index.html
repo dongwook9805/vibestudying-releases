@@ -507,23 +507,14 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: transform 420ms ease, object-position 420ms ease, filter 420ms ease;
+        transition: opacity 220ms ease, transform 420ms ease, filter 420ms ease;
         filter: saturate(1.03) contrast(1.03);
+        opacity: 1;
       }
 
-      .demo-stage[data-scene="capture"] .demo-shot {
-        object-position: 14% 34%;
-        transform: scale(1.56);
-      }
-
-      .demo-stage[data-scene="study"] .demo-shot {
-        object-position: 52% 48%;
-        transform: scale(1.38);
-      }
-
-      .demo-stage[data-scene="ai"] .demo-shot {
-        object-position: 88% 46%;
-        transform: scale(1.46);
+      .demo-shot.is-swapping {
+        opacity: 0.28;
+        transform: scale(1.012);
       }
 
       .demo-hotspot {
@@ -570,33 +561,89 @@
       }
 
       .demo-hotspot[data-scene="capture"] {
-        left: 24px;
-        bottom: 28px;
+        right: 24px;
+        top: 24px;
       }
 
       .demo-hotspot[data-scene="capture"]::after {
-        right: -20px;
-        top: -12px;
-      }
-
-      .demo-hotspot[data-scene="study"] {
-        right: 26px;
-        top: 28px;
-      }
-
-      .demo-hotspot[data-scene="study"]::after {
         left: -18px;
         bottom: 22px;
       }
 
+      .demo-hotspot[data-scene="study"] {
+        left: 28px;
+        bottom: 28px;
+      }
+
+      .demo-hotspot[data-scene="study"]::after {
+        right: -20px;
+        top: -12px;
+      }
+
       .demo-hotspot[data-scene="ai"] {
-        right: 26px;
+        left: 28px;
         bottom: 28px;
       }
 
       .demo-hotspot[data-scene="ai"]::after {
-        left: -18px;
-        top: 18px;
+        right: -20px;
+        top: -10px;
+      }
+
+      .demo-ai-panel {
+        position: absolute;
+        top: 22px;
+        right: 22px;
+        z-index: 3;
+        width: 280px;
+        display: grid;
+        gap: 10px;
+        padding: 14px;
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.94);
+        border: 1px solid rgba(15, 23, 32, 0.08);
+        box-shadow: 0 18px 32px rgba(17, 24, 31, 0.14);
+        backdrop-filter: blur(14px);
+        opacity: 0;
+        transform: translateY(18px);
+        pointer-events: none;
+        transition: opacity 240ms ease, transform 240ms ease;
+      }
+
+      .demo-stage[data-scene="ai"] .demo-ai-panel {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .demo-ai-panel strong {
+        display: block;
+        font-size: 13px;
+        line-height: 1.35;
+      }
+
+      .demo-ai-panel p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.65;
+      }
+
+      .demo-ai-prompt,
+      .demo-ai-answer {
+        border-radius: 16px;
+        padding: 10px 12px;
+        font-size: 12px;
+        line-height: 1.6;
+      }
+
+      .demo-ai-prompt {
+        background: rgba(15, 23, 32, 0.06);
+        color: var(--text);
+      }
+
+      .demo-ai-answer {
+        background: rgba(255, 255, 255, 0.84);
+        border: 1px solid rgba(15, 23, 32, 0.08);
       }
 
       .demo-panel {
@@ -1155,8 +1202,8 @@
         <div class="workflow-shell">
           <header class="workflow-header">
             <span>How It Works</span>
-            <h2>실제 앱 흐름 그대로, 만드는 것부터 외우는 순간까지.</h2>
-            <p>Camto를 실제로 사용할 때의 핵심 흐름만 남겼습니다. 카드 초안 만들기, 이미지 가리기 복습, 학습 중 AI 팁까지 직접 눌러보면서 한눈에 이해할 수 있습니다.</p>
+            <h2>mandible.pdf를 실제로 여는 순간부터, 가리기 학습과 AI 팁까지.</h2>
+            <p>실제 Camto dev 화면에서 `mandible.pdf`를 열고, 카드 만드는 흐름과 학습 화면을 그대로 캡처했습니다. 버튼을 누르면 실제 컷이 전환됩니다.</p>
           </header>
 
           <div class="demo-shell">
@@ -1164,24 +1211,37 @@
               <div class="demo-window">
                 <div class="demo-topbar">
                   <div>
-                    <strong>실제 Camto 학습 화면</strong>
-                    <span>카드 만들기 → 학습하기 → AI 팁</span>
+                    <strong>mandible.pdf 실제 사용 흐름</strong>
+                    <span>PDF 열기 → 가리기 카드 만들기 → 학습하기 → AI 팁</span>
                   </div>
                   <div class="demo-pill">Interactive Demo</div>
                 </div>
                 <div class="demo-viewport">
-                  <img class="demo-shot" src="./assets/hero-study-shot.png" alt="Camto 실제 학습 화면 데모" />
+                  <img
+                    class="demo-shot"
+                    id="demo-shot"
+                    src="./assets/demo-mandible-document.png"
+                    alt="Camto에서 mandible.pdf를 열어 실제로 학습하는 화면"
+                  />
                   <div class="demo-hotspot" data-scene="capture">
-                    <strong>가리기 카드 초안 만들기</strong>
-                    <span>캡처한 그림 위에서 텍스트 박스와 가리기 영역을 바로 잡습니다.</span>
+                    <strong>mandible.pdf에서 바로 카드 만들기</strong>
+                    <span>문서를 열자마자 `이미지`나 `캡처`로 들어가 가리기 카드 흐름을 시작합니다.</span>
                   </div>
                   <div class="demo-hotspot" data-scene="study">
                     <strong>학습하기에서 바로 복습</strong>
-                    <span>Space로 가려진 라벨을 열고, 구조를 떠올리며 반복 복습합니다.</span>
+                    <span>실제 이미지 가리기 카드 화면에서 Space로 구조를 열고 반복 암기합니다.</span>
                   </div>
                   <div class="demo-hotspot" data-scene="ai">
-                    <strong>옆 AI로 암기 팁 받기</strong>
-                    <span>카드 맥락 그대로 외우는 법, 차이점, 시험 포인트를 바로 묻습니다.</span>
+                    <strong>같은 카드 맥락에서 바로 질문</strong>
+                    <span>학습 중 헷갈리는 구조를 AI에게 바로 물어보고 암기 팁을 받습니다.</span>
+                  </div>
+                  <div class="demo-ai-panel" aria-hidden="true">
+                    <strong>AI anatomy tip</strong>
+                    <div class="demo-ai-prompt">mental foramen이랑 angle of mandible을 헷갈리지 않게 외우는 팁 알려줘</div>
+                    <div class="demo-ai-answer">
+                      body 앞쪽의 구멍은 <b>mental foramen</b>, 뒤아래 꺾이는 모서리는 <b>angle of mandible</b>로 묶어서 위치 기억을 잡습니다.
+                    </div>
+                    <p>카드 공부를 멈추지 않고 바로 질문하고, 답을 다음 복습에도 다시 참고할 수 있습니다.</p>
                   </div>
                 </div>
               </div>
@@ -1196,12 +1256,12 @@
 
               <section class="demo-steps" role="tablist" aria-label="Camto interactive demo steps">
                 <button class="demo-step-button active" type="button" data-scene-trigger="capture" role="tab" aria-selected="true">
-                  <strong>1. PDF에서 바로 카드 만들기</strong>
-                  <span>캡처 → 텍스트 스냅 → 가리기 카드 저장</span>
+                  <strong>1. mandible.pdf 열기</strong>
+                  <span>실제 자료를 열고 필요한 그림에서 카드 흐름 시작</span>
                 </button>
                 <button class="demo-step-button" type="button" data-scene-trigger="study" role="tab" aria-selected="false">
                   <strong>2. 이미지 가리기 카드로 공부하기</strong>
-                  <span>가린 라벨을 보며 구조명과 위치를 떠올리기</span>
+                  <span>가린 라벨을 열며 구조명과 위치를 떠올리기</span>
                 </button>
                 <button class="demo-step-button" type="button" data-scene-trigger="ai" role="tab" aria-selected="false">
                   <strong>3. 학습 중 AI에게 해부 팁 묻기</strong>
@@ -1210,12 +1270,12 @@
               </section>
 
               <section class="demo-card demo-scene-copy" id="demo-scene-copy">
-                <strong>PDF에서 바로 카드 초안을 만듭니다.</strong>
-                <p>실제 학습 자료를 보면서 필요한 부분만 바로 캡처하고, 라벨이 있는 자리만 가려서 카드로 저장합니다.</p>
+                <strong>mandible.pdf를 열고 바로 카드 흐름으로 들어갑니다.</strong>
+                <p>실제 PDF 문서 위에서 필요한 그림을 보고, 이미지 카드로 이어지는 흐름을 바로 시작합니다.</p>
                 <ul class="demo-scene-list">
-                  <li>박스를 대충 그리면 텍스트 스냅으로 조정</li>
-                  <li>숫자 위치와 가리기 영역을 수동 보정 가능</li>
-                  <li>자료 흐름을 끊지 않고 바로 단어장으로 저장</li>
+                  <li>자료를 따로 옮기지 않고 PDF 안에서 바로 시작</li>
+                  <li>`이미지`와 `캡처` 버튼으로 카드 생성 흐름 진입</li>
+                  <li>학습 자료와 단어장을 같은 창에서 연결</li>
                 </ul>
               </section>
             </aside>
@@ -1341,20 +1401,25 @@
       let communityRequestId = 0;
       const demoRoot = document.getElementById("interactive-demo");
       const demoCopy = document.getElementById("demo-scene-copy");
+      const demoShot = document.getElementById("demo-shot");
       const demoTriggers = Array.from(document.querySelectorAll("[data-scene-trigger]"));
       const demoScenes = {
         capture: {
-          title: "PDF에서 바로 카드 초안을 만듭니다.",
-          body: "실제 학습 자료를 보면서 필요한 부분만 바로 캡처하고, 라벨이 있는 자리만 가려서 카드로 저장합니다.",
+          title: "mandible.pdf를 열고 바로 카드 흐름으로 들어갑니다.",
+          body: "실제 학습 자료를 보면서 필요한 그림을 확인하고, 같은 창 안에서 이미지 카드와 가리기 카드 생성으로 이어집니다.",
+          image: "./assets/demo-mandible-document.png",
+          alt: "Camto에서 mandible.pdf를 연 실제 문서 화면",
           bullets: [
-            "박스를 대충 그리면 텍스트 스냅으로 조정",
-            "숫자 위치와 가리기 영역을 수동 보정 가능",
-            "자료 흐름을 끊지 않고 바로 단어장으로 저장",
+            "PDF를 여는 순간부터 바로 학습 흐름이 시작됩니다.",
+            "이미지/캡처 버튼으로 그림 기반 카드 생성 단계로 진입합니다.",
+            "문서, 채팅, 노트, 페이지 노트를 한 화면에서 같이 봅니다.",
           ],
         },
         study: {
           title: "이미지 가리기 카드로 바로 복습합니다.",
           body: "학습하기로 넘어가면 구조를 떠올린 뒤 가리기 영역을 열며 반복 복습할 수 있습니다.",
+          image: "./assets/demo-mandible-study.png",
+          alt: "Camto에서 실제 이미지 가리기 카드로 복습하는 화면",
           bullets: [
             "라벨을 가린 상태로 구조명과 위치를 먼저 떠올리기",
             "Space 중심으로 빠르게 열고 확인하는 흐름",
@@ -1364,6 +1429,8 @@
         ai: {
           title: "옆 AI에서 암기 팁과 구분 포인트를 바로 받습니다.",
           body: "카드 공부 중 막히면 같은 카드 맥락에서 바로 질문하고, 외우는 법이나 차이점을 이어서 정리할 수 있습니다.",
+          image: "./assets/demo-mandible-study.png",
+          alt: "Camto에서 이미지 가리기 카드 학습 중 AI 팁을 받는 화면",
           bullets: [
             "학습 중 카드 맥락을 유지한 채 바로 질문",
             "헷갈리는 구조 차이와 시험 포인트 정리",
@@ -1389,9 +1456,15 @@
       });
 
       function renderDemoScene(scene) {
-        if (!demoRoot || !demoCopy || !demoScenes[scene]) return;
+        if (!demoRoot || !demoCopy || !demoShot || !demoScenes[scene]) return;
         const payload = demoScenes[scene];
         demoRoot.dataset.scene = scene;
+        demoShot.classList.add("is-swapping");
+        window.setTimeout(() => {
+          demoShot.src = payload.image;
+          demoShot.alt = payload.alt;
+          demoShot.classList.remove("is-swapping");
+        }, 110);
         demoCopy.innerHTML = `
           <strong>${payload.title}</strong>
           <p>${payload.body}</p>
